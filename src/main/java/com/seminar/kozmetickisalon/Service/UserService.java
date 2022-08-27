@@ -1,0 +1,73 @@
+package com.seminar.kozmetickisalon.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.seminar.kozmetickisalon.DTO.RegistrationDTO;
+import com.seminar.kozmetickisalon.Model.Role;
+import com.seminar.kozmetickisalon.Model.User;
+import com.seminar.kozmetickisalon.Repository.RoleRepository;
+import com.seminar.kozmetickisalon.Repository.UserRepository;
+
+@Service
+public class UserService  implements UserDetailsService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(username);
+        if (user == null){
+            throw new UsernameNotFoundException("Invalid username or password.");
+        }
+        List<Role> roles = new ArrayList<Role>();
+        roles.add(user.getRole());
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                user.getPassword(),
+                mapRolesToAuthorities(roles));
+
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
+        return roles.stream()
+                .map(r -> new SimpleGrantedAuthority(r.getName()))
+                .collect(Collectors.toList());
+
+    }
+
+    public void save(RegistrationDTO userDto, String roleName) {
+        User newUser = new User();
+        newUser.setEmail(userDto.getEmail());
+        newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        newUser.setFirstName(userDto.getFirstName());
+        newUser.setLastName(userDto.getLastName());
+        newUser.setRole(roleRepository.findByName(roleName));
+        userRepository.save(newUser);
+
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    
+}

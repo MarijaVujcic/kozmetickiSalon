@@ -2,6 +2,8 @@ package com.seminar.kozmetickisalon.Model;
 
 import javax.persistence.*;
 
+import com.seminar.kozmetickisalon.DTO.RegistrationDTO;
+
 import java.util.Set;
 
 @Entity
@@ -48,6 +50,9 @@ public class User {
     }
 
     public User() {
+    }
+
+    public User(RegistrationDTO userDto) {
     }
 
     /**
