@@ -11,5 +11,14 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping("/Homepage")
+    public String Homepage(Model model) {
+        return "Homepage";
+    }
+
+    @GetMapping("/ponuda")
+    public String ponuda(Model model) {
+        return "ponuda";
+    }
 
 }
