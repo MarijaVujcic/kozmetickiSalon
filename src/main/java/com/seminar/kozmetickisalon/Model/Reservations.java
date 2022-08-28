@@ -21,13 +21,16 @@ public class Reservations {
     private Date reservationDate;
     private String phoneNumber;
     private Float totalPrice;
-    
+    private boolean isConfirmed;
+    private boolean isCancled;
+
     @ManyToOne
     private User user;
 
     @ManyToOne
     @JoinColumn(name="offer_id", nullable=false)
     private Offer offer;
+
 
     public Reservations() {
     }
@@ -39,9 +42,6 @@ public class Reservations {
         this.user = user;
         this.offer = offer;
     }
-
-
-
 
     /**
      * @return Integer return the reservation_id
@@ -125,6 +125,35 @@ public class Reservations {
      */
     public void setOffer(Offer offer) {
         this.offer = offer;
+    }
+
+
+    /**
+     * @return boolean return the isConfirmed
+     */
+    public boolean isIsConfirmed() {
+        return isConfirmed;
+    }
+
+    /**
+     * @param isConfirmed the isConfirmed to set
+     */
+    public void setIsConfirmed(boolean isConfirmed) {
+        this.isConfirmed = isConfirmed;
+    }
+
+    /**
+     * @return boolean return the isCancled
+     */
+    public boolean isIsCancled() {
+        return isCancled;
+    }
+
+    /**
+     * @param isCancled the isCancled to set
+     */
+    public void setIsCancled(boolean isCancled) {
+        this.isCancled = isCancled;
     }
 
 }

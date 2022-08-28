@@ -69,19 +69,19 @@
 			</div>
 		</div>
 		
-		<form  th:if="${updateEmployee != null}" th:object="${updateEmployee}" th:action="@{/employee/updateEmployee}" method="Post">
+		<form  th:if="${updateEmployee != null}" th:object="${updateEmployee}" th:action="@{/employee/updateEmployee}" method="post">
 			<h1>UPDATE EMPLOYEE</h1>
 			<div class="form-group" >
 				<input class="form-control" th:field="*{name}"  />
 				<input class="form-control" th:field="*{employee_id}" hidden/>
-
 			</div>
-			
 			<select  name="offerToDelete">
-				<option th:each="of : ${offersEmployeeYes}" th:value="${of.offer_id}" th:text="${of.nameOfOffer}" ></option>
+				<option value="">Delete offer</option>
+				<option th:each="of : ${offersEmployeeYes}" th:value="${of.offer_id}" th:text="${of.nameOfOffer}" ></option>>
 			</select>
-			<select  name="offerToAdd">Offer to add
-				<option th:if="${offersEmployeeNot.size() != 0}" th:each="ofy : ${offersEmployeeNot}" th:value="${ofy.offer_id}" th:text="${ofy.nameOfOffer}"></option>
+			<select  name="offerToAdd">
+				<option value="">Add offer</option>
+				<option  th:each="ofy : ${offersEmployeeNot}" th:value="${ofy.offer_id}" th:text="${ofy.nameOfOffer}"></option>
 			</select>
 			<button class="btn btn-outline-primary" type="submit">UPDATE</button>
 		</form>

@@ -2,7 +2,6 @@ package com.seminar.kozmetickisalon.Controller;
 
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,9 +52,7 @@ public class  EmployeeController {
     ModelAndView updateUserShow(@PathVariable String id){
         ModelAndView mv = new ModelAndView("employeeConfiguration");
         Employee updUser = employeeService.findById(Integer.valueOf(id));
-        List<Offer> offers = offerService.findAll();
-        Set<Offer> offersOfUser = updUser.getOffers();
-        offersOfUser.removeAll(offers);
+        List<Offer> offersOfUser = updUser.getOffers().stream().toList();
         List<Offer> offrN = offerService.findAll();
         offrN.removeAll(offersOfUser);
         mv.addObject("employees", employeeService.findAll());
@@ -74,11 +71,13 @@ public class  EmployeeController {
         if(offerToDelete != "" && offerToDelete !=null)
         {
             updEmployee.getOffers().remove(offerService.findById(Integer.valueOf(offerToDelete)));
+            updEmployee.setOffers(updEmployee.getOffers());
 
         }
         if(offerToAdd != "" && offerToAdd !=null)
         {
             updEmployee.getOffers().add(offerService.findById(Integer.valueOf(offerToAdd)));
+            updEmployee.setOffers(updEmployee.getOffers());
 
         }
         employeeService.update(updEmployee);

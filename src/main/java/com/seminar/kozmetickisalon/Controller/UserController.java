@@ -43,7 +43,6 @@ public class UserController {
     @PostMapping("/addUser")
     String createNewUser(@ModelAttribute User user, String selectedRole){
         if(userService.findByEmail(user.getEmail())== null){
-            System.out.println(selectedRole + "AAAAAAAAAAAAAAAAAAAAAAA");
             userService.save(user, selectedRole);
         }
         return "redirect:/user/config";

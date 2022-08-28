@@ -23,7 +23,15 @@ public class OfferService {
     }
 
     public void deleteOffer(Integer valueOf) {
-        offerRepository.delete(offerRepository.findById(valueOf).get());
+        Offer toDelete = offerRepository.findById(valueOf).get();
+        employeeRepository.findAll().forEach(e ->{
+            if(e.getOffers().contains(toDelete)){
+                e.getOffers().remove(toDelete);
+                employeeRepository.save(e);
+            }
+        });;
+        
+        offerRepository.delete(toDelete);
     }
 
     public void createOffer(Offer offer) {
