@@ -1,0 +1,97 @@
+<!doctype html>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+	
+		<link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+	
+		<title>Explore Blockchain</title>
+	
+		<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+	
+		<!-- Bootstrap core CSS -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+	
+		<!-- Custom styles for this template -->
+		<link href="starter-template.css" rel="stylesheet">
+	  </head>
+	
+  <body>
+
+
+    <main role="main" class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<h1>ROLES</h1>
+					<hr>
+					<hr>
+					<table class="table">
+						<thead>
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Name</th>
+							<th scope="col">Action</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:if="${roles != null}" th:each="role : ${roles}">
+							<td th:text="${role.name}"></td>
+							<td th:text="${role.role_id}"></td>
+							<td>
+								<form th:action="@{'/role/deleteRole/'+ ${role.role_id}}" method="get">
+									<button class="btn btn-outline-primary" type="submit">DELETE</button>
+								</form>
+
+						</tr>
+					</table>
+				</div>
+			</div>
+			<form  th:object="${roleToAdd}" th:action="@{/role/createRole}" method="post">
+				<h1>CREATE NEW ROLE</h1>
+				<div class="form-group" >
+					<label for="roleName" class="control-label">Role name</label> 
+					<input class="form-control" th:field="*{name}" />
+				</div>
+				<button class="btn btn-outline-primary" type="submit">CREATE</button>
+			</form>
+
+			<h1>UPDATE ROLE</h1>
+			<div th:if="${roles != null}" class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  Dropdown button
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+					<form th:each="role : ${roles}" th:action="@{'/role/updateRole/'+ ${role.role_id}}" method="get">
+						<button class="btn" type="submit" 
+						 th:text="${role.name}"></button>
+					</form>
+				</div>
+			  </div>
+			
+			<form th:if="${updateRole != null}" th:object="${updateRole}" th:action="@{/role/updateRole}" method="post">
+				<h1>UPDATE ROLE</h1>
+				<div class="form-group" >
+					<label for="roleName" class="control-label">Role name</label> 
+					<input class="form-control" th:field="*{name}" />
+					<input class="form-control" th:field="*{role_id}" hidden/>
+				</div>
+				<button class="btn btn-outline-primary" type="submit">UPDATE</button>
+			</form>
+	
+      
+    </main><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

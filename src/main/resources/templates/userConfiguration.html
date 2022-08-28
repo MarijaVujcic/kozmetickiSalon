@@ -1,0 +1,115 @@
+<!doctype html>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+	
+		<link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+	
+		<title>Explore Blockchain</title>
+	
+		<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+	
+		<!-- Bootstrap core CSS -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+	
+		<!-- Custom styles for this template -->
+		<link href="starter-template.css" rel="stylesheet">
+	  </head>
+	
+  <body>
+
+
+    <main role="main" class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h1>USERS</h1>
+				<hr>
+				<hr>
+				<table class="table">
+					<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">First name</th>
+						<th scope="col">Last name</th>
+						<th scope="col">Email</th>
+						<th scope="col">Role</th>
+						<th scope="col">Action</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:if="${users != null}" th:each="user : ${users}">
+						<td th:text="${user.user_id}"></td>
+						<td th:text="${user.firstName}"></td>
+						<td th:text="${user.lastName}"></td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${user.getRole().name}"></td>
+						<td>
+							<form th:action="@{'/user/deleteUser/'+${user.user_id}}" method="get">
+								<button class="btn btn-outline-primary" type="submit">DELETE</button>
+							</form>
+
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<form th:object="${userToAdd}" th:action="@{/user/addUser}" method="post">
+			<h1>CREATE NEW USER</h1>
+			<div class="form-group" >
+				<input class="form-control" th:field="*{firstName}" placeholder="First Name"/>
+				<input class="form-control" th:field="*{lastName}" placeholder="Last Name"/>
+				<input class="form-control" th:field="*{email}" placeholder="Email" />
+				<input class="form-control" th:field="*{password}" placeholder="Pasword" />
+			</div>
+				<select  name="selectedRole">
+					<option th:each="role : ${roles}" th:value="${role.role_id}" th:text="${role.name}"></option>
+				</select>
+			<button class="btn btn-outline-primary" type="submit">CREATE</button>
+			
+		</form>
+
+		<h1>UPDATE USER</h1>
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  Dropdown button
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+				<form th:each="user : ${users}" th:action="@{'/user/updateUser/'+ ${user.email}}" method="get">
+					<button class="btn" type="submit" 
+					 th:text="${user.email}"></button>
+				</form>
+			</div>
+		  </div>
+		
+		<form  th:if="${updateUser != null}" th:object="${updateUser}" th:action="@{/user/updateUser}" method="post">
+			<h1>UPDATE USER</h1>
+			<div class="form-group" >
+				<label for="roleName" class="control-label">User name</label> 
+				<input class="form-control" th:field="*{firstName}" />
+				<input class="form-control" th:field="*{lastName}" />
+				<input class="form-control" th:field="*{email}" />
+				<p>CURRENT ROLE - [[${updateUser.getRole().getName()}]]</p>
+				<select  name="roleToUpdate">
+					<option th:each="role : ${roles}" th:value="${role.role_id}" th:text="${role.name}"></option>
+				</select>
+			</div>
+			<button class="btn btn-outline-primary" type="submit">UPDATE</button>
+		</form>
+	
+      
+    </main><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

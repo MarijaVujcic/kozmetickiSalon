@@ -40,6 +40,10 @@ public class Role {
     public Role() {
     }
 
+    public Role(String name2) {
+        this.name = name2;
+    }
+
     public Integer getRole_id() {
         return role_id;
     }

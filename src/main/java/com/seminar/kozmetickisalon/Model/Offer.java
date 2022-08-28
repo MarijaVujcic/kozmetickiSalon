@@ -1,5 +1,6 @@
 package com.seminar.kozmetickisalon.Model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -25,7 +26,7 @@ public class Offer {
 
     @OneToMany(mappedBy="offer", fetch = FetchType.LAZY,
     cascade = CascadeType.ALL)
-    private Set<Reservations> reservations;
+    private Set<Reservations> reservations = new HashSet<Reservations>();
 
     public Offer(Integer offer_id, String nameOfOffer, String description, Float price,
             Set<Reservations> reservations) {
@@ -47,6 +48,12 @@ public class Offer {
     }
 
 
+
+    public Offer(Offer offer) {
+        this.nameOfOffer = offer.getNameOfOffer();
+        this.description = offer.getDescription();
+        this.price = offer.getPrice();
+    }
 
     /**
      * @return Integer return the offer_id

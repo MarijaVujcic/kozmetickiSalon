@@ -65,8 +65,36 @@ public class UserService  implements UserDetailsService {
 
     }
 
+    public void save(User userDto, String roleName) {
+        User newUser = new User();
+        newUser.setEmail(userDto.getEmail());
+        newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        newUser.setFirstName(userDto.getFirstName());
+        newUser.setLastName(userDto.getLastName());
+        newUser.setRole(roleRepository.findById(Integer.valueOf(roleName)).get());
+        userRepository.save(newUser);
+
+    }
+
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public void deleteUser(Integer id) {
+        userRepository.delete(userRepository.findById(id).get());
+    }
+
+    public void updateUser(User user, String role) {
+        User updUser =this.findByEmail(user.getEmail());
+        updUser.setEmail(user.getEmail());
+        updUser.setFirstName(user.getFirstName());
+        updUser.setLastName(user.getLastName());
+        updUser.setRole(roleRepository.findById(Integer.valueOf(role)).get());
+        userRepository.save(updUser);
     }
 
     

@@ -2,6 +2,8 @@ package com.seminar.kozmetickisalon.Model;
 
 import javax.persistence.*;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.seminar.kozmetickisalon.DTO.RegistrationDTO;
 
 import java.util.Set;
@@ -52,7 +54,21 @@ public class User {
     public User() {
     }
 
-    public User(RegistrationDTO userDto) {
+    public User(RegistrationDTO userDto, Role role) {
+        this.firstName = userDto.getFirstName();
+        this.lastName = userDto.getLastName();
+        this.email = userDto.getEmail();
+        this.password = userDto.getPassword();
+        this.role = role;
+    }
+
+    public User(User user, Role role) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.password = passwordEncoder.encode(user.getPassword());
+        this.role = role;
+        this.email = user.getEmail();
     }
 
     /**

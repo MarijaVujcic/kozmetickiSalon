@@ -66,6 +66,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll();
         http    .authorizeRequests()
                     .antMatchers("/admin/*").access("hasRole('ADMIN')")
+                    .antMatchers("/roles/*").access("hasRole('ADMIN')")
+                    .antMatchers("/users/*").access("hasRole('ADMIN')")
+                    .antMatchers("/reservations/*").access("hasRole('ADMIN')")
+                    .antMatchers("/offesr/*").access("hasRole('ADMIN')")
+                    .antMatchers("/employees/*").access("hasRole('ADMIN')")
                     .antMatchers("/welcome/*").access("hasRole('USER')")
                 
                 ;

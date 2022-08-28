@@ -1,0 +1,86 @@
+<!doctype html>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+	
+		<link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+	
+		<title>Explore Blockchain</title>
+	
+		<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+	
+		<!-- Bootstrap core CSS -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+	
+		<!-- Custom styles for this template -->
+		<link href="starter-template.css" rel="stylesheet">
+	  </head>
+	
+  <body>
+
+
+	<main role="main" class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h1>EMPLOYEES</h1>
+				<hr>
+				<hr>
+				<table class="table">
+					<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Name</th>
+						<th scope="col">Offers</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:if="${employees != null}" th:each="employee : ${employees}">
+						<td th:text="${employee.employee_id}"></td>
+						<td th:text="${employee.name}"></td>
+						<td th:each="offer : {employee.getOffer()}" th:text="${offer.getNameOfOffer()}"></td>
+						<td><input class="delete" type="submit" value="Delete" th:formaction="'/employee/deleteEmployee/'+${employee.employee_id}"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<form th:object="${employeeToAdd}" th:action="@{/employee/addEmployee}">
+			<h1>CREATE NEW EMPLOYEE</h1>
+			<div class="form-group" >
+				<input class="form-control" th:field="*{name}" placeholder="name"/>
+			</div>
+		</form>
+
+		<h1>UPDATE EMPLOYEE</h1>
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  Dropdown button
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" th:if="${employees != null}">
+			  <a class="dropdown-item" href="/updateEmployee/${employee.employee_id}" th:each="employee : ${employees}" th:text="${employee.name}"></a>
+			</div>
+		  </div>
+		
+		<form  th:if="${updateEmployee != null}" th:object="${updateEmployee}" th:action="@{/employee/updateEmployee}" method="Post">
+			<h1>UPDATE EMPLOYEE</h1>
+			<div class="form-group" >
+				<input class="form-control" th:field="*{name}"  />
+			</div>
+		</form>
+	
+      
+    </main>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
