@@ -1,5 +1,6 @@
 package com.seminar.kozmetickisalon.Model;
 
+import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ public class Reservations {
     private Integer reservation_id;
 
     private Date reservationDate;
+    private Time reservationTime;
     private String phoneNumber;
     private Float totalPrice;
     private boolean isConfirmed;
@@ -154,6 +156,20 @@ public class Reservations {
      */
     public void setIsCancled(boolean isCancled) {
         this.isCancled = isCancled;
+    }
+    
+    /**
+     * @return Time return the reservationTime
+     */
+    public Time getReservationTime() {
+        return reservationTime;
+    }
+
+    /**
+     * @param reservationTime the reservationTime to set
+     */
+    public void setReservationTime(Time reservationTime) {
+        this.reservationTime = reservationTime;
     }
 
 }
