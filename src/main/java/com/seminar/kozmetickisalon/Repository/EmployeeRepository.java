@@ -6,4 +6,5 @@ import com.seminar.kozmetickisalon.Model.Employee;
 
 public interface EmployeeRepository  extends JpaRepository<Employee, Integer>{
     
+    
 }

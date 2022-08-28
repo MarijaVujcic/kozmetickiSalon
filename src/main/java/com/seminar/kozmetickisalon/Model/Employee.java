@@ -1,5 +1,7 @@
 package com.seminar.kozmetickisalon.Model;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -23,7 +25,7 @@ public class Employee {
         inverseJoinColumns = @JoinColumn(name = "offerId", referencedColumnName = "offer_id" )
         
     )
-    private Set<Offer> offers;
+    private Set<Offer> offers = new HashSet<Offer>();
 
     public Employee() {
     }
@@ -75,6 +77,10 @@ public class Employee {
      */
     public Set<Offer> getOffers() {
         return offers;
+    }
+
+    public Object[] getOffersList() {
+        return offers.toArray();
     }
 
     /**

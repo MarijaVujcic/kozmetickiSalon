@@ -37,5 +37,10 @@ public class EmployeeService {
         employee.getOffers().add(offerService.findById(valueOf));
         employeeRepository.save(employee);
     }
+
+
+    public void update(Employee updEmployee) {
+        employeeRepository.save(updEmployee);
+    }
     
 }

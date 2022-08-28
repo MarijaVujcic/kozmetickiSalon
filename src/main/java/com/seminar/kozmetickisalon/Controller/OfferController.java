@@ -4,20 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seminar.kozmetickisalon.Model.*;
 import com.seminar.kozmetickisalon.Repository.OfferRepository;
-import com.seminar.kozmetickisalon.Repository.RoleRepository;
-import com.seminar.kozmetickisalon.Repository.UserRepository;
 import com.seminar.kozmetickisalon.Service.OfferService;
-import com.seminar.kozmetickisalon.Service.UserService;
 
 @Controller
 @RequestMapping("/offer")
