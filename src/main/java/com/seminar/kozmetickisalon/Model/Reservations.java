@@ -20,7 +20,7 @@ public class Reservations {
     private Integer reservation_id;
 
     private Date reservationDate;
-    private Time reservationTime;
+    private String reservationTime;
     private String phoneNumber;
     private Float totalPrice;
     private boolean isConfirmed;
@@ -158,17 +158,20 @@ public class Reservations {
         this.isCancled = isCancled;
     }
     
+    
+
+
     /**
-     * @return Time return the reservationTime
+     * @return String return the reservationTime
      */
-    public Time getReservationTime() {
+    public String getReservationTime() {
         return reservationTime;
     }
 
     /**
      * @param reservationTime the reservationTime to set
      */
-    public void setReservationTime(Time reservationTime) {
+    public void setReservationTime(String reservationTime) {
         this.reservationTime = reservationTime;
     }
 

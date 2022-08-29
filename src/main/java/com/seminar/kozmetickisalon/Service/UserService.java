@@ -3,6 +3,7 @@ package com.seminar.kozmetickisalon.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,25 +36,24 @@ public class UserService  implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
+        User user = this.findByEmail(username);
         if (user == null){
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        List<Role> roles = new ArrayList<Role>();
-        roles.add(user.getRole());
+       
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
         
         return new org.springframework.security.core.userdetails.User(
-          user.getEmail(), user.getPassword().toLowerCase(), enabled, accountNonExpired,
-          credentialsNonExpired, accountNonLocked, mapRolesToAuthorities(roles));
+          user.getEmail(), user.getPassword(), enabled, accountNonExpired,
+          credentialsNonExpired, accountNonLocked, mapRolesToAuthorities(user.getRoles()));
 
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
-        return roles.stream()
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> collection) {
+        return collection.stream()
                 .map(r -> new SimpleGrantedAuthority(r.getName()))
                 .collect(Collectors.toList());
 
@@ -65,7 +65,7 @@ public class UserService  implements UserDetailsService {
         newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
-        newUser.setRole(roleRepository.findByName(roleName));
+        newUser.setOneRole(roleRepository.findByName(roleName));
         userRepository.save(newUser);
 
     }
@@ -76,7 +76,7 @@ public class UserService  implements UserDetailsService {
         newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
-        newUser.setRole(roleRepository.findById(Integer.valueOf(roleName)).get());
+        newUser.setOneRole(roleRepository.findById(Integer.valueOf(roleName)).get());
         userRepository.save(newUser);
 
     }
@@ -86,7 +86,11 @@ public class UserService  implements UserDetailsService {
     }
 
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        if(userRepository.findByEmail(email).size() != 0)
+        {
+            return userRepository.findByEmail(email).get(0);
+        }
+        return null;
     }
 
     public List<User> findAll() {
@@ -102,7 +106,7 @@ public class UserService  implements UserDetailsService {
         updUser.setEmail(user.getEmail());
         updUser.setFirstName(user.getFirstName());
         updUser.setLastName(user.getLastName());
-        updUser.setRole(roleRepository.findById(Integer.valueOf(role)).get());
+        updUser.setOneRole(roleRepository.findById(Integer.valueOf(role)).get());
         userRepository.save(updUser);
     }
 

@@ -6,6 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.seminar.kozmetickisalon.DTO.RegistrationDTO;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,10 +23,13 @@ public class User {
     private String email;
     private String password;
 
-    
-    @ManyToOne
-    @JoinColumn(name="role_id", nullable=false)
-    private Role role;
+    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "users_roles",
+        joinColumns =@JoinColumn(name = "userId"),
+        inverseJoinColumns = @JoinColumn(name = "roleId")
+    )
+    private Collection<Role> roles = new HashSet<Role>();
 
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY,
     cascade = CascadeType.ALL)
@@ -37,8 +42,8 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.role = role;
         this.reservations = reservations;
+        this.getRoles().add(role);
     }
 
     public User(String firstName, String lastName, String email, String password, Role role,
@@ -47,8 +52,8 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.role = role;
         this.reservations = reservations;
+        this.getRoles().add(role);
     }
 
     public User() {
@@ -59,16 +64,15 @@ public class User {
         this.lastName = userDto.getLastName();
         this.email = userDto.getEmail();
         this.password = userDto.getPassword();
-        this.role = role;
+        this.getRoles().add(role);
     }
 
     public User(User user, Role role) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.password = passwordEncoder.encode(user.getPassword());
-        this.role = role;
+        this.password = user.getPassword();
         this.email = user.getEmail();
+        this.getRoles().add(role);
     }
 
     /**
@@ -141,19 +145,7 @@ public class User {
         this.password = password;
     }
 
-    /**
-     * @return Role return the role
-     */
-    public Role getRole() {
-        return role;
-    }
-
-    /**
-     * @param role the role to set
-     */
-    public void setRole(Role role) {
-        this.role = role;
-    }
+  
 
     /**
      * @return Set<Reservations> return the reservations
@@ -167,6 +159,28 @@ public class User {
      */
     public void setReservations(Set<Reservations> reservations) {
         this.reservations = reservations;
+    }
+    
+
+
+
+
+    /**
+     * @return Set<Role> return the roles
+     */
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    /**
+     * @param roles the roles to set
+     */
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void setOneRole(Role role) {
+        this.getRoles().add(role);
     }
 
 }

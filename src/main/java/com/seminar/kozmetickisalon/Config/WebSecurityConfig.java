@@ -14,13 +14,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import com.seminar.kozmetickisalon.Service.UserService;
 
 import javax.annotation.Resource;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
@@ -40,8 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
-    
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         
@@ -52,7 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             "/registration**", 
                             "/js/**",
                             "/css/**",
-                            "/images/**",
+                            "/static/**",
+                            "/image/**",
                             "/webjars/**").permitAll()
                 .and()
                     .formLogin()
@@ -72,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/admin/*").access("hasRole('ADMIN')")
                     .antMatchers("/role/*").access("hasRole('ADMIN')")
                     .antMatchers("/user/*").access("hasRole('ADMIN')")
-                    .antMatchers("/reservations/*").access("hasRole('ADMIN')")
+                    .antMatchers("/reservation/*").access("hasRole('ADMIN')")
                     .antMatchers("/offer/*").access("hasRole('ADMIN')")
                     .antMatchers("/employee/*").access("hasRole('ADMIN')")
                     .antMatchers("/welcome/*").access("hasRole('USER')")
@@ -90,6 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public DaoAuthenticationProvider authenticationProviderUser(){
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        System.out.println("BBBBBBBBBBBBBBBBBB");
         auth.setUserDetailsService(userService);
         auth.setPasswordEncoder(passwordEncoder());
         return auth;

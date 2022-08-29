@@ -4,22 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.seminar.kozmetickisalon.Repository.ReservationRepository;
 import com.seminar.kozmetickisalon.Service.ReservationService;
 import com.seminar.kozmetickisalon.Service.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.seminar.kozmetickisalon.Model.Employee;
-import com.seminar.kozmetickisalon.Model.Offer;
-import com.seminar.kozmetickisalon.Service.EmployeeService;
 import com.seminar.kozmetickisalon.Service.OfferService;
 
 @Controller

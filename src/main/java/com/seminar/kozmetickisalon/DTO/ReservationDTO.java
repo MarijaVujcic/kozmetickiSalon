@@ -8,12 +8,15 @@ public class ReservationDTO {
     private String phoneNumber;
     private Integer offerId;
     private Date date;
-    private Time time;
-    public ReservationDTO(String phoneNumber, Integer offerId, Date date, Time time) {
+    private String time;
+    public ReservationDTO(String phoneNumber, Integer offerId, Date date, String time) {
         this.phoneNumber = phoneNumber;
         this.offerId = offerId;
         this.date = date;
         this.time = time;
+    }
+
+    public ReservationDTO() {
     }
 
     /**
@@ -58,17 +61,20 @@ public class ReservationDTO {
         this.date = date;
     }
 
+
+
+
     /**
-     * @return Time return the time
+     * @return String return the time
      */
-    public Time getTime() {
+    public String getTime() {
         return time;
     }
 
     /**
      * @param time the time to set
      */
-    public void setTime(Time time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
