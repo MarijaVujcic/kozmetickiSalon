@@ -3,19 +3,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	
+
 	<meta charset="utf-8">
-    <title>LIGHT</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<title>LIGHT</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link th:href="@{/css/starter-template.css}" rel="stylesheet">
-    <link th:href="@{/css/jumbotron.css}" rel="stylesheet">
-    <style>
+	<script src="/js/bootstrap.min.js"></script>
+	<style>
 		.bd-placeholder-img {
 			font-size: 1.125rem;
 			text-anchor: middle;
@@ -39,52 +34,172 @@
 	</style>
 
 	<!-- Custom styles for this template -->
-    
+
 </head>
 
 <body>
 
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/">LIGHT</a>
+	<nav class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #e6bae7;">
+		<div>
 
-			</div>
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
-                <ul class="nav navbar-nav  mr-auto">
-                    <li class="nav-item active"><a href="#">O nama</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ponuda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/registration">Registriraj se</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Zakaži termin</a>
-                    </li>
-                </ul>
-            </div>
+
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
+			<ul class="navbar-nav  mr-auto">
+				<li class="nav-item">
+					<a class="navbar navbar-brand" href="/welcome"><b>LIGHT</b></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/welcome">O nama</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="/ponuda">Ponuda</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/registration">Registriraj se</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/login">Zakaži termin</a>
+				</li>
+			</ul>
 		</div>
+
 	</nav>
 
 	<main role="main" class="container py-5">
-
+        <h2>PONUDA I CJENIK</h2>
+        <h6>*sve cijene su izražene u HRK</h6>
+        <h6>*trajanje po tretmanu: 1h</h6>
+        <br>
 		<ul class="list-group list-group-flush">
+            <h4>Nokti</h4>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              Cras justo odio
-              <h4><span class="badge badge-primary badge-secondary">Cijena: 14 kn</span></h4>
+                Estetska manikura (bez lakiranja)
+              <h4><span class="badge badge-primary badge-secondary">Cijena: 90 kn</span></h4>
             </li>
             <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
-              Dapibus ac facilisis in
-              <span class="badge badge-primary badge-pill">2</span>
+                Estetska manikura i obični lak
+              <h4><span class="badge badge-primary badge-secondary">Cijena: 90 kn</span></h4>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              Morbi leo risus
-              <span class="badge badge-primary badge-pill">1</span>
-            </li>
+                Estetska OPI SPA manikura
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 140 kn</span></h4>
+              </li>
+              <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Manikura i trajni lak 
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 150 kn</span></h4>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                SPA manikura + trajni lak
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 180 kn</span></h4>
+              </li>
+              <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Skidanje trajnog laka/gela
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 60 kn</span></h4>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Ugradnja gel noktiju
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 250 kn</span></h4>
+              </li>
+              <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Medicinska pedikura i trajni lak
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 250 kn</span></h4>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Muška klasična pedikura
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 160 kn</span></h4>
+              </li>
+              <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Callux pedikura
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 200 kn</span></h4>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Callux pedikura i trajni lak
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 250 kn</span></h4>
+              </li>
+              <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Ruska pedikura i obični lak
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 180 kn</span></h4>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Ruska pedikura + trajni lak
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 250 kn</span></h4>
+              </li>
           </ul>
 
 
+          <ul class="list-group list-group-flush">
+            <br>
+            <h4>Njega lica</h4>
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Higijenski tretman lica (čišćenje lica)
+              <h4><span class="badge badge-primary badge-secondary">Cijena: 300 kn</span></h4>
+            </li>
+            <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Higijenski tretman lica - Casmara luxury proizvodi
+              <h4><span class="badge badge-primary badge-secondary">Cijena: 400 kn</span></h4>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Higijenski tretman lica i lasersko uklanjanje akni
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 500 kn</span></h4>
+              </li>
+              <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Higijenski tretman lica i terapija kisikom 
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 500 kn</span></h4>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Dermapen - mikroiglična terapija - ANTIAGE
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 750 kn</span></h4>
+              </li>
+              <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Tretman voćnim kiselinama
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 250 kn</span></h4>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Njega lica
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 250 kn</span></h4>
+              </li>
+              <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Lifting masaža lica i vrata
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 130 kn</span></h4>
+              </li>
+          </ul>
+
+
+
+          <ul class="list-group list-group-flush">
+            <br>
+            <h4>Estetika lica - obrve i trepavice</h4>
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Oblikovanje obrva - vosak
+              <h4><span class="badge badge-primary badge-secondary">Cijena: 50 kn</span></h4>
+            </li>
+            <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Oblikovanje obrva voskom i bojanje
+              <h4><span class="badge badge-primary badge-secondary">Cijena: 70 kn</span></h4>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Oblikovanje obrva i nausnica - vosak
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 80 kn</span></h4>
+              </li>
+              <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Oblikovanje obrva - konac 
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 50 kn</span></h4>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Oblikovanje obrva koncem i bojanje
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 80 kn</span></h4>
+              </li>
+              <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                Oblikovanje obrva i nausnica - konac
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 80 kn</span></h4>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Bojanje obrva
+                <h4><span class="badge badge-primary badge-secondary">Cijena: 40 kn</span></h4>
+              </li>
+          </ul>
 		
 	</main>
 
@@ -92,51 +207,51 @@
 
 
 </body>
-<footer style="background-color: #deded5;">
-    <div class="container p-4">
-      <div class="row">
-        <div class="col-lg-6 col-md-6 mb-4">
-            <h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Informacije:</h5>
-            <table class="table" style="color: #4f4f4f; border-color: #666;">
-                <tbody>
-                    <tr>
-                        <td>Kontakt broj:</td>
-                        <td>099 776 5643</td>
-                    </tr>
-                    <tr>
-                        <td>E-mail:</td>
-                        <td>light.bs@gmail.com</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4">
-            <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Vidimo se :)</h5>
+<footer style="background-color:#f0ddf1;">
+	<div class="container p-4">
+		<div class="row">
+			<div class="col-lg-5 col-md-6 mb-4">
+				<h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Informacije:</h5>
+				<table class="table" style="color: #4f4f4f; border-color: #666666;">
+					<tbody>
+						<tr>
+							<td>Kontakt broj:</td>
+							<td>099 776 5643</td>
+						</tr>
+						<tr>
+							<td>E-mail:</td>
+							<td>light.bs@gmail.com</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-3 col-md-6 mb-4">
+				<h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Vidimo se :)</h5>
 
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4">
-            <h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
-            <table class="table" style="color: #4f4f4f; border-color: #666;">
-                <tbody>
-                    <tr>
-                        <td>Pon - Pet</td>
-                        <td>09:00 - 17:00</td>
-                    </tr>
-                    <tr>
-                        <td>Vikend</td>
-                        <td>Zatvoreno</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-      </div>
-    </div>
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2020 Copyright:
-      <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
+			</div>
+			<div class="col-lg-3 col-md-6 mb-4">
+				<h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
+				<table class="table" style="color: #4f4f4f; border-color: #666666;">
+					<tbody>
+						<tr>
+							<td>Pon - Pet</td>
+							<td>09:00 - 17:00</td>
+						</tr>
+						<tr>
+							<td>Vikend</td>
+							<td>Zatvoreno</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="text-center p-3" style="background-color:#e6bae7">
+		© 2022 Copyright:
+		<a class="text-dark" href="">LIGHT beauty centar</a>
+	</div>
 
-  </footer>
+</footer>
 
 
 </html>
