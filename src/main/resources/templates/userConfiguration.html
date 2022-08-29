@@ -83,7 +83,7 @@
 						<td th:text="${user.firstName}"></td>
 						<td th:text="${user.lastName}"></td>
 						<td th:text="${user.email}"></td>
-						<td th:text="${user.getRole().name}"></td>
+						<td th:text="${user.getOneRole().name}"></td>
 						<td>
 							<form th:action="@{'/user/deleteUser/'+${user.user_id}}" method="get">
 								<button class="btn btn-outline-primary" type="submit">DELETE</button>

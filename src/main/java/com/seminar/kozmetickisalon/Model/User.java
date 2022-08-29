@@ -182,5 +182,8 @@ public class User {
     public void setOneRole(Role role) {
         this.getRoles().add(role);
     }
+    public Role getOneRole() {
+        return this.getRoles().stream().findFirst().get();
+    }
 
 }

@@ -53,8 +53,8 @@
      </div>
     </form>
    </div>
-   <form th:action="@{/getFreeTime}" class="form-horizontal" method="post">
-    <input th:value="${dateReservation}" name="dateReservation" hidden/>
+   <form th:action="@{/saveReservation}" class="form-horizontal" method="post">
+    <input th:value="${dateReservation}"  name="dateReservation" hidden/>
     <select class="form-select" name="choosenTime">
         <option  th:each="time : ${freeTime}" class="btn" type="submit" 
         th:text="${time}" th:value="${time}"></option>
