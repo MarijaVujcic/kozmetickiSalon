@@ -2,13 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	
+
 	<meta charset="utf-8">
-    <title>LIGHT</title>
+	<title>LIGHT</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>    <style>
+	<script src="/js/bootstrap.min.js"></script>
+	<style>
 		.bd-placeholder-img {
 			font-size: 1.125rem;
 			text-anchor: middle;
@@ -32,40 +33,43 @@
 	</style>
 
 	<!-- Custom styles for this template -->
-    
+
 </head>
 
 <body>
 
-	<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #e6bae7;">
-		<div >
-				<a class="navbar navbar-brand" href="/">LIGHT</a>
-            </button>
-			
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
-                <ul class="navbar-nav  mr-auto">
-                    <li class="nav-item active"><a class="nav-link" href="/about">O nama</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/ponuda">Ponuda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/registration">Registriraj se</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Zakaži termin</a>
-                    </li>
-                </ul>
-            </div>
+	<nav class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #e6bae7;">
+		<div>
+
+
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
+			<ul class="navbar-nav  mr-auto">
+				<li class="nav-item">
+					<a class="navbar navbar-brand" href="/welcome"><b>LIGHT</b></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/welcome">O nama</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/ponuda">Ponuda</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/registration">Registriraj se</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="/login">Zakaži termin</a>
+				</li>
+			</ul>
 		</div>
-	</div>
+
 	</nav>
 
-	<div class="container">
 
-		<div class="row" style=" background-color: aliceblue;margin-top: 50px">
-			<div class="col-md-6 col-md-offset-3">
-				<h1>Login</h1>
-				<hr>
+	<main role="main"  class="container py-5">
+
+		<div class="row">
+			<div class="col-md-6 col-md-offset-6">
+				<h2>PRIJAVA</h2>
 				<hr>
 				<form th:action="@{/login}" method="post">
 					<div th:if="${param.error}">
@@ -77,30 +81,41 @@
 					<div th:if="${param.logout} == 'deactivated'">
 							<div class="alert alert-info">Your account is deactivated, it will be activated when you login again!</div>
 						</div>
-					<div class="form-group">
-						<label for="email">Username</label>: <input type="text"
-							id="username" name="username" class="form-control"
-							autofocus="autofocus" placeholder="Username" />
-					</div>
-					<div class="form-group">
-						<label for="password">Password</label>: <input type="password"
-							id="password" name="password" class="form-control"
-							placeholder="Password" />
-					</div>
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-6 col-sm-offset-3">
-								<input type="submit" name="login-submit" id="login-submit"
-									class="form-control btn btn-primary" value="Log In" />
+						<p class="alert alert-danger" th:if="${message != null}" th:text="${message}"></p>
+						<div th:if="${param.logout}">
+							<div class="alert alert-info">You have been logged out.</div>
+						</div>
+						<div th:if="${param.logout} == 'deactivated'">
+								<div class="alert alert-info">Your account is deactivated, it will be activated when you login again!</div>
+							</div>
+						<div class="form-group">
+							<label for="email" class="control-label">Email</label>: <input type="text"
+								id="username" name="email" class="form-control"
+								autofocus="autofocus" placeholder="Email" th:field="*{email}" />
+								<p class="alert alert-danger" role="alert"
+							th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
+							error</p>
+						</div>
+						<div class="form-group">
+							<label for="password" class="control-label">Lozinka</label>: <input type="password"
+								id="password" name="password" class="form-control"
+								placeholder="Password"  th:field="*{password}"/>
+								<p class="alert alert-danger" role="alert"
+							th:each="error : ${#fields.errors('password')}"
+							th:text="${error}">Validation error</p>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-6 col-sm-offset-3">
+									<input type="submit" name="login-submit" id="login-submit"
+										class="form-control btn btn-dark"  style=" color: #080808; border-color:#e794e9; background-color: #ead5eb" value="Log In" />
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<span>New user? <a href="/" th:href="@{/registration}">Register
-								here</a></span>
-					</div>
-				</form>
-			</div>
+						<div class="form-group">
+							<span>Novi korisnik? <a href="/" th:href="@{/registration}" style=" color: #df379e;">Registriraj se ovdje!</a></span>
+						</div>
+					</form>
 		</div>
 
 
@@ -113,51 +128,51 @@
 
 
 </body>
-<footer style="background-color: #deded5;">
-    <div class="container p-4">
-      <div class="row">
-        <div class="col-lg-6 col-md-6 mb-4">
-            <h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Informacije:</h5>
-            <table class="table" style="color: #4f4f4f; border-color: #666;">
-                <tbody>
-                    <tr>
-                        <td>Kontakt broj:</td>
-                        <td>099 776 5643</td>
-                    </tr>
-                    <tr>
-                        <td>E-mail:</td>
-                        <td>light.bs@gmail.com</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4">
-            <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Vidimo se :)</h5>
+<footer style="background-color:#f0ddf1;">
+	<div class="container p-4">
+		<div class="row">
+			<div class="col-lg-5 col-md-6 mb-4">
+				<h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Informacije:</h5>
+				<table class="table" style="color: #4f4f4f; border-color: #666666;">
+					<tbody>
+						<tr>
+							<td>Kontakt broj:</td>
+							<td>099 776 5643</td>
+						</tr>
+						<tr>
+							<td>E-mail:</td>
+							<td>light.bs@gmail.com</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-3 col-md-6 mb-4">
+				<h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Vidimo se :)</h5>
 
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4">
-            <h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
-            <table class="table" style="color: #4f4f4f; border-color: #666;">
-                <tbody>
-                    <tr>
-                        <td>Pon - Pet</td>
-                        <td>09:00 - 17:00</td>
-                    </tr>
-                    <tr>
-                        <td>Vikend</td>
-                        <td>Zatvoreno</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-      </div>
-    </div>
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2020 Copyright:
-      <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
+			</div>
+			<div class="col-lg-3 col-md-6 mb-4">
+				<h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
+				<table class="table" style="color: #4f4f4f; border-color: #666666;">
+					<tbody>
+						<tr>
+							<td>Pon - Pet</td>
+							<td>09:00 - 17:00</td>
+						</tr>
+						<tr>
+							<td>Vikend</td>
+							<td>Zatvoreno</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="text-center p-3" style="background-color:#e6bae7">
+		© 2022 Copyright:
+		<a class="text-dark" href="">LIGHT beauty centar</a>
+	</div>
 
-  </footer>
+</footer>
 
 
 </html>

@@ -2,13 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	
+
 	<meta charset="utf-8">
-    <title>LIGHT</title>
+	<title>LIGHT</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>    <style>
+	<script src="/js/bootstrap.min.js"></script>
+	<style>
 		.bd-placeholder-img {
 			font-size: 1.125rem;
 			text-anchor: middle;
@@ -32,40 +33,44 @@
 	</style>
 
 	<!-- Custom styles for this template -->
-    
+
 </head>
 
 <body>
 
-	<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #e6bae7;">
-		<div >
-				<a class="navbar navbar-brand" href="/">LIGHT</a>
-            </button>
-			
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
-                <ul class="navbar-nav  mr-auto">
-                    <li class="nav-item active"><a class="nav-link" href="/about">O nama</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/ponuda">Ponuda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/registration">Registriraj se</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Zakaži termin</a>
-                    </li>
-                </ul>
-            </div>
-		</div>
-	</div>
-	</nav>
+	<nav class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #e6bae7;">
+		<div>
 
-	<main role="main" class="container">
+
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
+			<ul class="navbar-nav  mr-auto">
+				<li class="nav-item">
+					<a class="navbar navbar-brand" href="/welcome"><b>LIGHT</b></a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="/welcome">O nama</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/ponuda">Ponuda</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/registration">Registriraj se</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/login">Zakaži termin</a>
+				</li>
+			</ul>
+		</div>
+
+	</nav>
+<body>
+
+	<main role="main" class="container py-5">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<h1>EMPLOYEES</h1>
+			<div class="col-md-6 col-md-offset-6">
+				<h3>EMPLOYEES</h3>
 				<hr>
-				<hr>
+				
 				<table class="table">
 					<thead>
 					<tr>
@@ -82,17 +87,20 @@
 			</div>
 		</div>
 		<form th:object="${employeeToAdd}" th:action="@{/employee/addEmployee}" method="post">
-			<h1>CREATE NEW EMPLOYEE</h1>
+			<h3>CREATE NEW EMPLOYEE</h3>
+			<hr>
 			<div class="form-group" >
 				<input class="form-control" th:field="*{name}" placeholder="name"/>
 			</div>
-			<select  name="selectedOffer">
+			<select  name="selectedOffer" class="form-control mr-sm-4" style=" color: #080808; border-color:#e794e9; background-color: #ead5eb">
 				<option th:each="ofy : ${offers}" th:value="${ofy.offer_id}" th:text="${ofy.nameOfOffer}"></option>
 			</select>
-			<button class="btn btn-outline-primary" type="submit">CREATE</button>
+			<br>
+			<button class="btn btn-dark"  style="color: #080808; border-color:#e794e9; background-color: #ead5eb" type="submit">CREATE</button>
 		</form>
-
-		<h1>UPDATE EMPLOYEE</h1></main>
+		<br>
+		<h3>UPDATE EMPLOYEE</h3>
+		<hr>
 		<div class="dropdown">
 			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			  Dropdown button
@@ -125,58 +133,60 @@
       
     </main>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+ 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-</body><footer style="background-color: #deded5;">
-    <div class="container p-4">
-      <div class="row">
-        <div class="col-lg-6 col-md-6 mb-4">
-            <h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Informacije:</h5>
-            <table class="table" style="color: #4f4f4f; border-color: #666;">
-                <tbody>
-                    <tr>
-                        <td>Kontakt broj:</td>
-                        <td>099 776 5643</td>
-                    </tr>
-                    <tr>
-                        <td>E-mail:</td>
-                        <td>light.bs@gmail.com</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4">
-            <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Vidimo se :)</h5>
 
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4">
-            <h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
-            <table class="table" style="color: #4f4f4f; border-color: #666;">
-                <tbody>
-                    <tr>
-                        <td>Pon - Pet</td>
-                        <td>09:00 - 17:00</td>
-                    </tr>
-                    <tr>
-                        <td>Vikend</td>
-                        <td>Zatvoreno</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-      </div>
-    </div>
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2020 Copyright:
-      <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
 
-  </footer>
+</body>
+
+<footer style="background-color: #ead5eb;" >
+	<div class="container p-4">
+		<div class="row">
+			<div class="col-lg-5 col-md-6 mb-4">
+				<h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
+				<table class="table" style="color: #4f4f4f; border-color: #666666;">
+					<tbody>
+						<tr>
+							<td>Kontakt broj:</td>
+							<td>099 776 5643</td>
+						</tr>
+						<tr>
+							<td>E-mail:</td>
+							<td>light.bs@gmail.com</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-3 col-md-6 mb-4">
+				<h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Vidimo se :)</h5>
+
+			</div>
+			<div class="col-lg-3 col-md-6 mb-4">
+				<h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
+				<table class="table" style="color: #4f4f4f; border-color: #666666;">
+					<tbody>
+						<tr>
+							<td>Pon - Pet</td>
+							<td>09:00 - 17:00</td>
+						</tr>
+						<tr>
+							<td>Vikend</td>
+							<td>Zatvoreno</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="text-center p-3" style="background-color: #e6bae7;">
+		© 2022 Copyright:
+		<a class="text-dark">LIGHT beauty studio</a>
+	</div>
+
+</footer>
 
 
 </html>
