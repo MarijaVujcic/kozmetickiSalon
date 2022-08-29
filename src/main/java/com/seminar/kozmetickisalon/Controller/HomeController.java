@@ -79,6 +79,12 @@ public class HomeController {
         mv.addObject("dateReservation", date);
         return mv;
     }
+    @PostMapping("/saveReservation")
+    public ModelAndView saveReservation(String choosenTime, Date dateReservation) {
+        ModelAndView mv = new ModelAndView();
+        /// stvaranje rezervacije
+        return mv;
+    }
 
 
 }
