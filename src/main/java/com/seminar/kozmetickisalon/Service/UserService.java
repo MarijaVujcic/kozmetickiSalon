@@ -41,9 +41,14 @@ public class UserService  implements UserDetailsService {
         }
         List<Role> roles = new ArrayList<Role>();
         roles.add(user.getRole());
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),
-                user.getPassword(),
-                mapRolesToAuthorities(roles));
+        boolean enabled = true;
+        boolean accountNonExpired = true;
+        boolean credentialsNonExpired = true;
+        boolean accountNonLocked = true;
+        
+        return new org.springframework.security.core.userdetails.User(
+          user.getEmail(), user.getPassword().toLowerCase(), enabled, accountNonExpired,
+          credentialsNonExpired, accountNonLocked, mapRolesToAuthorities(roles));
 
     }
 
@@ -74,6 +79,10 @@ public class UserService  implements UserDetailsService {
         newUser.setRole(roleRepository.findById(Integer.valueOf(roleName)).get());
         userRepository.save(newUser);
 
+    }
+
+    public boolean checkPassword(String pass, User user){
+        return passwordEncoder.matches(pass, user.getPassword());
     }
 
     public User findByEmail(String email) {

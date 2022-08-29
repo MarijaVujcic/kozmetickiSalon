@@ -1,112 +1,199 @@
-<!doctype html>
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
-	
-		<link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-	
-		<title>Explore Blockchain</title>
-	
-		<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
-	
-		<!-- Bootstrap core CSS -->
-		<link href="/css/bootstrap.min.css" rel="stylesheet">
-	
-		<!-- Custom styles for this template -->
-		<link href="starter-template.css" rel="stylesheet">
-	  </head>
-	
-  <body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<head>
+	
+	<meta charset="utf-8">
+    <title>LIGHT</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+    <style>
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+				font-size: 3.5rem;
+			}
+
+		}
+
+		.img-fluid {
+			max-width: 100%;
+			height: auto;
+		}
+	</style>
+
+	<!-- Custom styles for this template -->
+    
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #e6bae7;">
+		<div >
+				<a class="navbar navbar-brand" href="/">LIGHT</a>
+            </button>
+			
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
+                <ul class="navbar-nav  mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="/about">O nama</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ponuda">Ponuda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/registration">Registriraj se</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Zakaži termin</a>
+                    </li>
+                </ul>
+            </div>
+		</div>
+	</div>
+	</nav>
 
     <main role="main" class="container">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<H6>[[${tea}]]</H6>
-					<p th:text="${nesto}"></p>
-	
-					<form th:action="@{/registration}" th:object="${user}" method="post">
-	
-						<p class="error-message" th:if="${#fields.hasGlobalErrors()}"
-							th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
-							error</p>
-	
-						<div class="form-group"
-							th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
-							<label for="firstName" class="control-label">First name</label> <input
-								id="firstName" class="form-control" th:field="*{firstName}" />
-							<p class="error-message"
-								th:each="error: ${#fields.errors('firstName')}"
-								th:text="${error}">Validation error</p>
-						</div>
-						<div class="form-group"
-							th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
-							<label for="lastName" class="control-label">Last name</label> <input
-								id="lastName" class="form-control" th:field="*{lastName}" />
-							<p class="error-message"
-								th:each="error : ${#fields.errors('lastName')}"
-								th:text="${error}">Validation error</p>
-						</div>
-						<div class="form-group"
-							th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
-							<label for="email" class="control-label">E-mail</label> <input
-								id="email" class="form-control" th:field="*{email}" />
-							<p class="error-message"
-								th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
-								error</p>
-						</div>
-						<div class="form-group"
-							th:classappend="${#fields.hasErrors('confirmEmail')}? 'has-error':''">
-							<label for="confirmEmail" class="control-label">Confirm
-								e-mail</label> <input id="confirmEmail" class="form-control"
-								th:field="*{confirmEmail}" />
-							<p class="error-message"
-								th:each="error : ${#fields.errors('confirmEmail')}"
-								th:text="${error}">Validation error</p>
-						</div>
-						<div class="form-group"
-							th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
-							<label for="password" class="control-label">Password</label> <input
-								id="password" class="form-control" type="password"
-								th:field="*{password}" />
-							<p class="error-message"
-								th:each="error : ${#fields.errors('password')}"
-								th:text="${error}">Validation error</p>
-						</div>
-						<div class="form-group"
-							th:classappend="${#fields.hasErrors('confirmPassword')}? 'has-error':''">
-							<label for="confirmPassword" class="control-label">Confirm
-								password</label> <input id="confirmPassword" class="form-control"
-								type="password" th:field="*{confirmPassword}" />
-							<p class="error-message"
-								th:each="error : ${#fields.errors('confirmPassword')}"
-								th:text="${error}">Validation error</p>
-						</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+
+				<form th:action="@{/registration}" th:object="${user}" method="post">
+					
+						<p class="alert alert-danger" role="alert" th:if="${#fields.hasGlobalErrors()}"
+						th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
+						error</p>
 						
-						<div class="form-group" >
-							<button type="submit" class="btn btn-success">Register</button>
-							<span>Already registered? <a href="/" th:href="@{/login}">Login
-									here</a></span>
-						</div>
+				
+					
+
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
+						<label for="firstName" class="control-label">First name</label> <input
+							id="firstName" class="form-control" th:field="*{firstName}" />
+						<p class="alert alert-danger" role="alert"
+							th:each="error: ${#fields.errors('firstName')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
+						<label for="lastName" class="control-label">Last name</label> <input
+							id="lastName" class="form-control" th:field="*{lastName}" />
+						<p class="alert alert-danger" role="alert"
+							th:each="error : ${#fields.errors('lastName')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
+						<label for="email" class="control-label">E-mail</label> <input
+							id="email" class="form-control" th:field="*{email}" />
+						<p class="alert alert-danger" role="alert"
+							th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
+							error</p>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('confirmEmail')}? 'has-error':''">
+						<label for="confirmEmail" class="control-label">Confirm
+							e-mail</label> <input id="confirmEmail" class="form-control"
+							th:field="*{confirmEmail}" />
+						<p class="alert alert-danger" role="alert"
+							th:each="error : ${#fields.errors('confirmEmail')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+						<label for="password" class="control-label">Password</label> <input
+							id="password" class="form-control" type="password"
+							th:field="*{password}" />
+						<p class="alert alert-danger" role="alert"
+							th:each="error : ${#fields.errors('password')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('confirmPassword')}? 'has-error':''">
+						<label for="confirmPassword" class="control-label">Confirm
+							password</label> <input id="confirmPassword" class="form-control"
+							type="password" th:field="*{confirmPassword}" />
+						<p class="alert alert-danger" role="alert"
+							th:each="error : ${#fields.errors('confirmPassword')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					
+					<div class="form-group" >
+						<button type="submit" class="btn btn-success">Register</button>
+						<span>Already registered? <a href="/" th:href="@{/login}">Login
+								here</a></span>
+					</div>
+
+				</form>
+		</div>
+	</div>
+
+  
+</main><!-- /.container -->
+
+
 	
-					</form>
+	<script src="/js/jquery-3.3.1.slim.min.js"></script>
+	<script>window.jQuery || document.write('<script src="(js/bootstrap.min.js"><\/script>')</script>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+<footer style="background-color: #ead5eb";>
+	<div class="container p-4">
+		<div class="row">
+			<div class="col-lg-5 col-md-6 mb-4">
+				<h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
+				<table class="table" style="color: #4f4f4f; border-color: #666;">
+					<tbody>
+						<tr>
+							<td>Kontakt broj:</td>
+							<td>099 776 5643</td>
+						</tr>
+						<tr>
+							<td>E-mail:</td>
+							<td>light.bs@gmail.com</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-3 col-md-6 mb-4">
+				<h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Vidimo se :)</h5>
+				
+			</div>
+			<div class="col-lg-3 col-md-6 mb-4">
+				<h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
+				<table class="table" style="color: #4f4f4f; border-color: #666;">
+					<tbody>
+						<tr>
+							<td>Pon - Pet</td>
+							<td>09:00 - 17:00</td>
+						</tr>
+						<tr>
+							<td>Vikend</td>
+							<td>Zatvoreno</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
+	</div>
+	<div class="text-center p-3" style="background-color: #e6bae7;">
+		© 2022 Copyright:
+		<a class="text-dark" >LIGHT beauty studio</a>
+	</div>
 	
-      
-    </main><!-- /.container -->
+</footer>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-</body>
+
+<!-- End of .container -->
+
 </html>

@@ -1,19 +1,21 @@
-<!doctype html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+	
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="generator" content="Jekyll v3.8.5">
-	<title>Home page</title>
-
-
-	<link href="\css\bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link href="\css\starter-template.css" rel="stylesheet">
-
-	<style>
+    <title>LIGHT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link th:href="@{/css/starter-template.css}" rel="stylesheet">
+    <link th:href="@{/css/jumbotron.css}" rel="stylesheet">
+    <style>
 		.bd-placeholder-img {
 			font-size: 1.125rem;
 			text-anchor: middle;
@@ -37,42 +39,37 @@
 	</style>
 
 	<!-- Custom styles for this template -->
-
-
-	<link href="\css\jumbotron.css" rel="stylesheet">
+    
 </head>
 
 <body>
 
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #e6bae7;">
-		<a class="navbar-brand" href="#"><b>LIGHT</b></a>
-		
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-			aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">LIGHT</a>
 
-		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">O nama <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Ponuda</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Registriraj se</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Zakaži termin</a>
-				</li>
-			</ul>
+			</div>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
+                <ul class="nav navbar-nav  mr-auto">
+                    <li class="nav-item active"><a href="#">O nama</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Ponuda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/registration">Registriraj se</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Zakaži termin</a>
+                    </li>
+                </ul>
+            </div>
 		</div>
 	</nav>
 
-    <main role="main" class="container py-5">
+	<main role="main" class="container py-5">
 
-        <ul class="list-group list-group-flush">
+		<ul class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Cras justo odio
               <h4><span class="badge badge-primary badge-secondary">Cijena: 14 kn</span></h4>
@@ -86,23 +83,20 @@
               <span class="badge badge-primary badge-pill">1</span>
             </li>
           </ul>
-  
-      </main>
-    <script src="\js\jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="\js\bootstrap.min.js"><\/script>')</script>
-<script src="/docs/4.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
-    crossorigin="anonymous"></script>
+
+
+		
+	</main>
+
+
+
+
 </body>
-
-
-<footer style="background-color: #ead5eb";>
-<div class="container p-4">
-    <div class="row">
-        <div class="col-lg-5 col-md-6 mb-4">
-            <h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
+<footer style="background-color: #deded5;">
+    <div class="container p-4">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 mb-4">
+            <h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Informacije:</h5>
             <table class="table" style="color: #4f4f4f; border-color: #666;">
                 <tbody>
                     <tr>
@@ -118,7 +112,7 @@
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
             <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Vidimo se :)</h5>
-            
+
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
             <h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
@@ -135,17 +129,14 @@
                 </tbody>
             </table>
         </div>
+      </div>
     </div>
-</div>
-<div class="text-center p-3" style="background-color: #e6bae7;">
-    © 2022 Copyright:
-    <a class="text-dark" >LIGHT beauty studio</a>
-</div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2020 Copyright:
+      <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
 
-</footer>
+  </footer>
 
-
-<!-- End of .container -->
 
 </html>
-

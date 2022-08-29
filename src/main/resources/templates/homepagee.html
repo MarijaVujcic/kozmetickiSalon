@@ -60,76 +60,64 @@
 	</div>
 	</nav>
 
-    <main role="main" class="container">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<h1>ROLES</h1>
-					<hr>
-					<hr>
-					<table class="table">
-						<thead>
-						<tr>
-							<th scope="col">ID</th>
-							<th scope="col">Name</th>
-							<th scope="col">Action</th>
-						</tr>
-						</thead>
-						<tbody>
-						<tr th:if="${roles != null}" th:each="role : ${roles}">
-							<td th:text="${role.name}"></td>
-							<td th:text="${role.role_id}"></td>
-							<td>
-								<form th:action="@{'/role/deleteRole/'+ ${role.role_id}}" method="get">
-									<button class="btn btn-outline-primary" type="submit">DELETE</button>
-								</form>
+	<main role="main">
 
-						</tr>
-					</table>
+		<div class="container py-5">
+			<div class="jumbotron text-dark jumbotron-image shadow img-fluid"
+				style="background-image: url('/image/pozadina.jpg');" >
+
+				<h1 class="mb-4" style="font-family: monospace">
+					<b>LIGHT BEAUTY STUDIO 🖤</b>
+				</h1>
+				<h4 class="mb-4" style="font-family: monospace">
+					<b><u>Stavite sebe na prvo mjesto!</u></b>
+				</h4>
+			</div>
+		</div>
+
+
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron" style="background-color: #ead5eb";>
+			<div class="container">
+				<h1 class="display-3">Dobrodošli!</h1>
+				<p>U našem Beauty Centru pružamo najučinkovitije i najnaprednije tretmane za njegu kože, lica i tijela. Ovdje ćete naći najvažnije informacije o tretmanima koje imamo u ponudi kao i njihove cijene. Putem ove stranice možete pogledati slobodne termine i rezervirati svoje mjesto za jedan od naših tretmana.</p>
+				<h5> Veselimo se Vašem dolasku!</h5>
+			</div>
+		</div>
+
+		<div class="container">
+			<!-- Example row of columns -->
+			<div class="row">
+				<div class="col-md-4">
+					<h2>O nama</h2>
+					<p>LIGHT beauty studio je studio s dugogodišnjom tradicijom i iskustvom u pružanju usluga njege lica i tijela. U ugodnom i moderno uređenom ambijentu, naše stručno osoblje, koje se neprekidno usavršava, svakom klijentu pruža individualan pristup i program prilagođen njegovim željama, potrebama, navikama i mogućnostima. </p>
+					
+				</div>
+				<div class="col-md-4">
+					<h2>Kvaliteta</h2>
+					<p>U našem salonu koristimo samo najkvalitetnije preparate svjetskih brendova te najsuvremenije aparate za njegu lica i tijela. Za njegu Vašeg tijela koristimo isključivo najbolje brendove :Juliette Armand lice i tijelo, OPI za njegu Vaših ruku i stopala, te Jana nails i Reforma trajni lakovi.</p>
+					
+				</div>
+				<div class="col-md-4">
+					<h2>Najtraženije usluge</h2>
+					<p>Otkrivamo Vam čari odličnih noktiju i još boljih obrva. To je manji dio onoga u čemu smo najbolji, onoga po čemu je naš salon prepoznatljiv. Prepustite se u ruke naših profesionalaca i uvjerite se sami. Od izuzetne nam je važnosti da je svaki naš klijent zadovoljan, da svaka osoba koja uđe u salon osjeti dobrodošlicu i toplinu.</p>
+					
 				</div>
 			</div>
-			<form  th:object="${roleToAdd}" th:action="@{/role/createRole}" method="post">
-				<h1>CREATE NEW ROLE</h1>
-				<div class="form-group" >
-					<label for="roleName" class="control-label">Role name</label> 
-					<input class="form-control" th:field="*{name}" />
-				</div>
-				<button class="btn btn-outline-primary" type="submit">CREATE</button>
-			</form>
 
-			<h1>UPDATE ROLE</h1>
-			<div th:if="${roles != null}" class="dropdown">
-				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				  Dropdown button
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-					<form th:each="role : ${roles}" th:action="@{'/role/updateRole/'+ ${role.role_id}}" method="get">
-						<button class="btn" type="submit" 
-						 th:text="${role.name}"></button>
-					</form>
-				</div>
-			  </div>
-			
-			<form th:if="${updateRole != null}" th:object="${updateRole}" th:action="@{/role/updateRole}" method="post">
-				<h1>UPDATE ROLE</h1>
-				<div class="form-group" >
-					<label for="roleName" class="control-label">Role name</label> 
-					<input class="form-control" th:field="*{name}" />
-					<input class="form-control" th:field="*{role_id}" hidden/>
-				</div>
-				<button class="btn btn-outline-primary" type="submit">UPDATE</button>
-			</form>
-	
-      
-    </main><!-- /.container -->
+			<hr>
+		</div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-</body><footer style="background-color: #deded5;">
+
+	</main>
+
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+	<script>window.jQuery || document.write('<script src="(js/bootstrap.min.js"><\/script>')</script>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+<footer style="background-color: #deded5;">
     <div class="container p-4">
       <div class="row">
         <div class="col-lg-6 col-md-6 mb-4">
