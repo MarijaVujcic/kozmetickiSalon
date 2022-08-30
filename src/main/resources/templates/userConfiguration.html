@@ -100,6 +100,8 @@
 		</div>
 		<form th:object="${userToAdd}" th:action="@{/user/addUser}" method="post">
 			<h3>CREATE NEW USER</h3>
+
+			<p class="alert alert-danger" th:if="${message != null}" th:text="${message}"></p>
 			<hr>
 			<div class="form-group" >
 				<input class="form-control" th:field="*{firstName}" placeholder="First Name"/>

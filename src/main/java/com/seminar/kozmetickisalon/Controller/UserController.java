@@ -41,11 +41,17 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    String createNewUser(@ModelAttribute User user, String selectedRole){
+    ModelAndView createNewUser(@ModelAttribute User user, String selectedRole){
+        ModelAndView mv = new ModelAndView("userConfiguration");
+        mv.addObject("users", userService.findAll());
+        mv.addObject("userToAdd", new User());
+        mv.addObject("roles", roleRepository.findAll());
         if(userService.findByEmail(user.getEmail()) == null){
-            userService.save(user, selectedRole); //TODO: DODAT MESSAGE
+            userService.save(user, selectedRole); 
+            mv.setViewName("redirect:/user/config");
         }
-        return "redirect:/user/config";
+        mv.addObject("message", "Korisnik već postoji!");
+        return mv;
     }
 
     @PostMapping("/updateUser/")
