@@ -4,12 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.seminar.kozmetickisalon.Model.Employee;
-import com.seminar.kozmetickisalon.Model.User;
 import com.seminar.kozmetickisalon.Repository.*;
 import com.seminar.kozmetickisalon.Service.*;
 
@@ -37,8 +34,8 @@ public class AdminController {
     
     
     @GetMapping("/")
-    ModelAndView showHomePage(){
-        ModelAndView mv = new ModelAndView("reservationsList");
+    ModelAndView showHomePageAdmin(){
+        ModelAndView mv = new ModelAndView("reservationsLst");
         mv.addObject("reservations",  reservationService.finAllUnconfirmed());
         return mv;
     }
@@ -49,7 +46,4 @@ public class AdminController {
         return "redirect:/admin/";
     }
 
-
-    
- 
 }

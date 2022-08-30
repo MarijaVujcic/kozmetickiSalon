@@ -108,18 +108,13 @@
 		<br>
 		<h3>UPDATE OFFER</h3>
 		<hr>
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			  Dropdown button
-			</button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-				<form th:each="offer : ${offers}" th:action="@{'/offer/updateOffer/'+ ${offer.offer_id}}" method="get">
-					<button class="btn" type="submit" 
-					 th:text="${offer.nameOfOffer}"></button>
-				</form>
-			</div>
-		  </div>
-		
+		<form  th:action="@{'/offer/updateOffer/'}" method="post">
+			<select name="id" class="form-control mr-sm-4" style=" color: #080808; border-color:#e794e9; background-color: #ead5eb">
+					<option th:each="offer : ${offers}" th:value="${offer.offer_id}" th:text="${offer.nameOfOffer}"> </option>
+			</select>
+			<button class="btn" type="submit" >ODABERI</button>
+		</form>
+
 		<form  th:if="${updateOffer!= null}" th:object="${updateOffer}" th:action="@{/offer/updateOffer}" method="post">
 			<h1>UPDATE OFFER</h1>
 			<div class="form-group" >

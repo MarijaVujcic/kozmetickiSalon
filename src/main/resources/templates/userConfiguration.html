@@ -117,17 +117,17 @@
 		<br>
 		<h3>UPDATE USER</h3>
 		<hr>
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			  Dropdown button
-			</button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-				<form th:each="user : ${users}" th:action="@{'/user/updateUser/'+ ${user.email}}" method="get">
-					<button class="btn" type="submit" 
-					 th:text="${user.email}"></button>
-				</form>
-			</div>
-		  </div>
+		<div>
+			
+		<form  th:action="@{'/user/updateUser/'}" method="post">
+			<select  name="email" class="form-control mr-sm-4" style=" color: #080808; border-color:#e794e9; background-color: #ead5eb">
+					<option th:each="user : ${users}" th:value="${user.email}" th:text="${user.email}"> </option>
+			</select>
+		<button class="btn" type="submit" >ODABERI</button>
+		</form>
+				
+			
+		</div>
 		<br>
 		<form  th:if="${updateUser != null}" th:object="${updateUser}" th:action="@{/user/updateUser}" method="post">
 			<h3>UPDATE USER</h3>
@@ -137,7 +137,7 @@
 				<input class="form-control" th:field="*{firstName}" />
 				<input class="form-control" th:field="*{lastName}" />
 				<input class="form-control" th:field="*{email}" />
-				<p>CURRENT ROLE - [[${updateUser.getRole().getName()}]]</p>
+				<p>CURRENT ROLE - [[${updateUser.getOneRole().name}]]</p>
 				<select  name="roleToUpdate">
 					<option th:each="role : ${roles}" th:value="${role.role_id}" th:text="${role.name}"></option>
 				</select>

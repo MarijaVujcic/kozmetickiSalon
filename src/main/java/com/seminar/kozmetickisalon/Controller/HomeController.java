@@ -39,8 +39,12 @@ public class HomeController {
     public String login(Model model) {
         return "login";
     }
-
     @GetMapping("/")
+    public String wel(Model model) {
+        return "homepagee";
+    }
+
+    @GetMapping("/welcome")
     public String Homepage(Model model) {
         return "homepagee";
     }
@@ -49,6 +53,7 @@ public class HomeController {
     public String ponuda(Model model) {
         return "ponuda";
     }
+
 
     @GetMapping("/reserve")
     public ModelAndView reserve(Model model) {

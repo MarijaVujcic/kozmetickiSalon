@@ -23,8 +23,8 @@ public class Reservations {
     private String reservationTime;
     private String phoneNumber;
     private Float totalPrice;
-    private boolean isConfirmed;
-    private boolean isCancled;
+    private boolean isConfirmed = false;
+    private boolean isCancled = false;
 
     @ManyToOne
     private User user;
@@ -43,6 +43,8 @@ public class Reservations {
         this.totalPrice = totalPrice;
         this.user = user;
         this.offer = offer;
+        this.isConfirmed = false;
+
     }
 
     /**

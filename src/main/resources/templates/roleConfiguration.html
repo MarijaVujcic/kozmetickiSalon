@@ -78,8 +78,8 @@
 						</thead>
 						<tbody>
 						<tr th:if="${roles != null}" th:each="role : ${roles}">
-							<td th:text="${role.name}"></td>
 							<td th:text="${role.role_id}"></td>
+							<td th:text="${role.name}"></td>
 							<td>
 								<form th:action="@{'/role/deleteRole/'+ ${role.role_id}}" method="get">
 									<button class="btn btn-dark"  style=" color: #080808; border-color:#e794e9; background-color: #ead5eb" type="submit">DELETE</button>
@@ -101,17 +101,14 @@
 			<br>
 			<h3>UPDATE ROLE</h3>
 			<hr>
-			<div th:if="${roles != null}" class="dropdown">
-				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				  Dropdown button
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-					<form th:each="role : ${roles}" th:action="@{'/role/updateRole/'+ ${role.role_id}}" method="get">
-						<button class="btn" type="submit" 
-						 th:text="${role.name}"></button>
-					</form>
-				</div>
-			  </div>
+			<form  th:action="@{'/role/updateRole/'}" method="post">
+				<select name="id" class="form-control mr-sm-4" style=" color: #080808; border-color:#e794e9; background-color: #ead5eb">
+						<option th:each="role : ${roles}" th:value="${role.role_id}" th:text="${role.name}"> </option>
+				</select>
+				<button class="btn" type="submit" >ODABERI</button>
+			</form>
+	
+			
 			
 			<form th:if="${updateRole != null}" th:object="${updateRole}" th:action="@{/role/updateRole}" method="post">
 				<h3>UPDATE ROLE</h3>

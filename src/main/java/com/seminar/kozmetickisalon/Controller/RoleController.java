@@ -1,6 +1,5 @@
 package com.seminar.kozmetickisalon.Controller;
 
-import javax.print.DocFlavor.STRING;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +27,8 @@ public class RoleController {
         return mv;
     }
 
-    @GetMapping("/updateRole/{id}")
-    ModelAndView updateRoleShow(@PathVariable String id){
+    @PostMapping("/updateRole/")
+    ModelAndView updateRoleShow(String id){
         ModelAndView mv = new ModelAndView("roleConfiguration");
         Role updRole = roleRepository.findById(Integer.valueOf(id)).get();
         mv.addObject("roles", roleRepository.findAll());

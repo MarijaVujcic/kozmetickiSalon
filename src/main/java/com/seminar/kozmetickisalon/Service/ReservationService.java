@@ -39,11 +39,23 @@ public class ReservationService {
 
 
     public List<Reservations> findAllByUser(Integer u) {
-        return reservationRepository.findAllByUserId(u).stream().toList();
+        List<Reservations> res = new ArrayList<Reservations>();
+        this.findAll().forEach((r) -> {
+            if(r.getUser().getUser_id() == u){
+                res.add(r);
+            }
+        });
+        return res;
     }
+    
     public List<Reservations> findAllByOffer(Integer o) {
-
-        return reservationRepository.findAllByOfferId(o).stream().toList();
+        List<Reservations> res = new ArrayList<Reservations>();
+        this.findAll().forEach((r) -> {
+            if(r.getOffer().getOffer_id() == o){
+                res.add(r);
+            }
+        });
+        return res;
     }
 
 
@@ -53,7 +65,13 @@ public class ReservationService {
 
 
     public List<Reservations> finAllUnconfirmed() {
-        return reservationRepository.finAllUnconfirmed();
+        List<Reservations> res = new ArrayList<Reservations>();
+        this.findAll().forEach((r) -> {
+            if(!r.isIsConfirmed()){
+                res.add(r);
+            }
+        });
+        return res;
     }
 
 

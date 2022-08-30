@@ -42,14 +42,14 @@ public class UserController {
 
     @PostMapping("/addUser")
     String createNewUser(@ModelAttribute User user, String selectedRole){
-        if(userService.findByEmail(user.getEmail())== null){
-            userService.save(user, selectedRole);
+        if(userService.findByEmail(user.getEmail()) == null){
+            userService.save(user, selectedRole); //TODO: DODAT MESSAGE
         }
         return "redirect:/user/config";
     }
 
-    @GetMapping("/updateUser/{email}")
-    ModelAndView updateUserShow(@PathVariable String email){
+    @PostMapping("/updateUser/")
+    ModelAndView updateUserShow(String email){
         ModelAndView mv = new ModelAndView("userConfiguration");
         User updUser = userService.findByEmail(email);
         mv.addObject("users", userService.findAll());

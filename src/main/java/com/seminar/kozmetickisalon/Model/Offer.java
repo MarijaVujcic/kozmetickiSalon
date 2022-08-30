@@ -24,7 +24,7 @@ public class Offer {
     private String description;
     private Float price;
 
-    @OneToMany(mappedBy="offer", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy="offer", fetch = FetchType.EAGER,
     cascade = CascadeType.ALL)
     private Set<Reservations> reservations = new HashSet<Reservations>();
 

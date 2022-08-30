@@ -101,17 +101,13 @@
 		<br>
 		<h3>UPDATE EMPLOYEE</h3>
 		<hr>
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			  Dropdown button
-			</button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<form th:if="${employees != null}"  th:each="employee : ${employees}" th:action="@{'/employee/updateEmployee/'+ ${employee.employee_id}}" method="get">
-					<button class="btn" type="submit" 
-					th:text="${employee.name}"></button>
-				</form>
-			</div>
-		</div>
+		<form  th:action="@{/employee/updateEmployee/}" method="post">
+			<select name="id" class="form-control mr-sm-4" style=" color: #080808; border-color:#e794e9; background-color: #ead5eb">
+					<option th:if="${employees != null}"  th:each="employee : ${employees}" th:value="${employee.employee_id}" th:text="${employee.name}"> </option>
+			</select>
+			<button class="btn" type="submit" >ODABERI</button>
+		</form>
+
 		
 		<form  th:if="${updateEmployee != null}" th:object="${updateEmployee}" th:action="@{/employee/updateEmployee}" method="post">
 			<h1>UPDATE EMPLOYEE</h1>

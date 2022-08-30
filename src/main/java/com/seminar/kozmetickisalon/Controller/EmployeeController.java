@@ -16,7 +16,7 @@ import com.seminar.kozmetickisalon.Model.Employee;
 import com.seminar.kozmetickisalon.Model.Offer;
 import com.seminar.kozmetickisalon.Service.EmployeeService;
 import com.seminar.kozmetickisalon.Service.OfferService;
-
+//TODO:MAKNIT DESC U OFFER
 @Controller
 @RequestMapping("/employee")
 public class  EmployeeController {
@@ -48,8 +48,8 @@ public class  EmployeeController {
         return "redirect:/employee/config";
     }
 
-    @GetMapping("/updateEmployee/{id}")
-    ModelAndView updateUserShow(@PathVariable String id){
+    @PostMapping("/updateEmployee/")
+    ModelAndView updateUserShow( String id){
         ModelAndView mv = new ModelAndView("employeeConfiguration");
         Employee updUser = employeeService.findById(Integer.valueOf(id));
         List<Offer> offersOfUser = updUser.getOffers().stream().toList();
@@ -59,7 +59,7 @@ public class  EmployeeController {
         mv.addObject("employeeToAdd", new Employee());
         mv.addObject("offersEmployeeNot", offrN);
         mv.addObject("offersEmployeeYes", offersOfUser);
-
+        mv.addObject("offers", offerService.findAll());
         mv.addObject("updateEmployee", updUser);
         return mv;
     } 

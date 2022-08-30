@@ -44,8 +44,8 @@ public class OfferController {
         return "redirect:/offer/config";
     }
 
-    @GetMapping("/updateOffer/{id}")
-    ModelAndView updateUserShow(@PathVariable String id){
+    @PostMapping("/updateOffer/")
+    ModelAndView updateUserShow( String id){
         ModelAndView mv = new ModelAndView("offerConfiguration");
         Offer updOffer = offerService.findById(Integer.valueOf(id));
         mv.addObject("offers", offerRepository.findAll());
