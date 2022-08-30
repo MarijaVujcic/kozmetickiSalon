@@ -33,141 +33,207 @@
 	</style>
 
 	<!-- Custom styles for this template -->
+
+</head>
+
 <body>
 
-<!--formden.js communicates with FormDen server to validate fields and submit via AJAX -->
-<script type="text/javascript" src="https://formden.com/static/cdn/formden.js"></script>
+	<nav class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #e6bae7;">
+		<div>
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
+			<ul class="navbar-nav  mr-auto">
+				<li class="nav-item">
+					<a class="navbar navbar-brand" href="/welcome"><b>LIGHT</b></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/welcome">O nama</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/ponuda">Ponuda</a>
+				</li>
+				<li class="nav-item" sec:authorize="!isAuthenticated()">
+					<a class="nav-link" href="/registration">Registriraj se</a>
+				</li>
+				<li class="nav-item" sec:authorize="!isAuthenticated()">
+					<a class="nav-link" href="/login">Zakaži termin</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
+					<a class="nav-link active" th:href="@{/reserve}">Rezerviraj termin</a>
+				</li>
 
-<!-- Special version of Bootstrap that is isolated to content wrapped in .bootstrap-iso -->
-<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
+					<a class="nav-link" th:href="@{/getUserReservations}">Moje rezervacije</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/admin/}">Početna</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/user/config}">Korisnici</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/employee/config}">Zaposlenici</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/offer/config}">Ponude</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/reservation/config}">Rezervacije</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/role/config}">Role</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated()">
+					<a class="nav-link" th:href="@{/logout}">Odjava</a>
+				</li>
 
-<!--Font Awesome (added because you use icons in your prepend/append)-->
-<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 
-<!-- Inline CSS based on choices in "Settings" tab -->
-<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
 
-<nav  class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #e6bae7;">
-  <div>
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault" ></div>
-    <ul class="navbar-nav  mr-auto">
-      <li class="nav-item">
-        <a class="navbar navbar-brand" href="/welcome"><b>LIGHT</b></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/welcome">O nama</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/ponuda">Ponuda</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/registration">Registriraj se</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/login">Zakaži termin</a>
-      </li>
-      <li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
-        <a class="nav-link" href="/reserve}">Rezerviraj termin</a>
-      </li>
-      <li class="nav-item" sec:authorize="isAuthenticated()">
-        <a class="nav-link" th:href="@{/logout}">LOGOUT</a>
-      </li>
-      
-    </ul>
-  </div>
+			</ul>
+		</div>
 
-</nav>
-<main role="main">
-  <div class="container py-5">
-<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
-<div class="bootstrap-iso">
+	</nav>
+	<!-- Custom styles for this template -->
 
- <div class="container-fluid">
 
-  <div class="row">
-    <!-- KALENDAR -->
 
-   <div class="col-md-6 col-sm-6 col-xs-12">
-      <form  th:action="@{'/getFreeTime/'}" method="post">
-          <div class="form-group ">
-            <label class="control-label col-sm-2 requiredField" for="date">
-            Date
-            <span class="asteriskField">
-              *
-            </span>
-            </label>
-            <div class="col-sm-10">
-            <div class="input-group">
-              <div class="input-group-addon">
-              <i class="fa fa-calendar">
-              </i>
-              </div>
-              <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
-            </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-10 col-sm-offset-2">
-            <input name="_honey" style="display:none" type="text"/>
-            </div>
-          </div>
-        </div>
-        <select name="employeeId" class="form-control mr-sm-4" style=" color: #080808; border-color:#e794e9; background-color: #ead5eb">
-            <option th:each="employee : ${employees}" th:value="${employee.employee_id}" th:text="${employee.name}"> </option>
-        </select>
-        <button class="btn" type="submit" >ODABERI</button>
-      </form>
-  
-    
-<div class="container">
+	<!--formden.js communicates with FormDen server to validate fields and submit via AJAX -->
+	<script type="text/javascript" src="https://formden.com/static/cdn/formden.js"></script>
 
-    <form th:if="${reservation != null}" th:object="${reservation}" th:action="@{/saveReservation}" class="form-horizontal" method="post">
-        <input th:value="${reservation.date}" type="text" name="dateReservation"/>
-        <select class="form-select" name="choosenTime">
-            <option  th:each="time : ${freeTime}" class="btn" type="submit" 
-            th:text="${time}" th:value="${time}" th:field="${reservation.time}"></option>
-        </select> 
-        <select class="form-select" name="choosenTime">
-            <option  th:each="offer : ${offers}" class="btn" type="submit" 
-            th:text="${offer.nameOfOffer}" th:value="${offer.offer_id}" th:field="${reservation.offerId}"></option>
-        </select>
-        <label for="phoneNumber" class="control-label">Broj mobitela:</label>
-         <input id="phoneNumber" class="form-control" th:field="*{phoneNumber}" />
-         <input id="employeeid" class="form-control" th:field="*{employeeId}" hidden/>
-         <input id="date" class="form-control" th:field="*{date}" hidden/>
+	<!-- Special version of Bootstrap that is isolated to content wrapped in .bootstrap-iso -->
+	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
-        <button class="btn btn-primary " name="submit" type="submit">
-            Submit
-        </button>
-    </form>
-  </div>
-    
-  </div>
- </div>
-</div>
-</div>
-</main>
-<!-- Extra JavaScript/CSS added manually in "Settings" tab -->
-<!-- Include jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<!--Font Awesome (added because you use icons in your prepend/append)-->
+	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 
-<!-- Include Date Range Picker -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+	<!-- Inline CSS based on choices in "Settings" tab -->
+	<style>
+		.bootstrap-iso .formden_header h2,
+		.bootstrap-iso .formden_header p,
+		.bootstrap-iso form {
+			font-family: Arial, Helvetica, sans-serif;
+			color: black
+		}
 
-<script>
-	$(document).ready(function(){
-		var date_input=$('input[name="date"]'); //our date input has the name "date"
-		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-		date_input.datepicker({
-			format: 'mm/dd/yyyy',
-			container: container,
-			todayHighlight: true,
-			autoclose: true,
+		.bootstrap-iso form button,
+		.bootstrap-iso form button:hover {
+			color: white !important;
+		}
+
+		.asteriskField {
+			color: red;
+		}
+	</style>
+
+	<main role="main" style="margin-top: 200px;">
+
+		<div class="container py-5">
+
+			<div class="bootstrap-iso">
+
+				<div class="container-fluid">
+
+					<div class="row">
+						<!-- KALENDAR -->
+
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<form th:action="@{'/getFreeTime/'}" method="post">
+								<div class="form-group ">
+									<label class="control-label col-sm-2 requiredField" for="date">
+										Date
+										<span class="asteriskField">
+											*
+										</span>
+									</label>
+									<div class="col-sm-10">
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-calendar">
+												</i>
+											</div>
+											<input class="form-control"
+												style=" color: #080808; border-color:#e794e9; background-color: #ead5eb"
+												id="date" name="date" placeholder="MM/DD/YYYY" type="text" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-2">
+										<input name="_honey" style="display:none" type="text" />
+									</div>
+								</div>
+						</div>
+						<select name="employeeId" class="form-control mr-sm-4"
+							style=" color: #080808; border-color:#e794e9; background-color: #ead5eb">
+							<option th:each="employee : ${employees}" th:value="${employee.employee_id}"
+								th:text="${employee.name}"> </option>
+						</select>
+						<br>
+						<button class="btn btn-dark"
+							style=" color: #080808; border-color:#e794e9; background-color: #ead5eb"
+							type="submit">ODABERI</button>
+						</form>
+
+
+						<div class="container py-5">
+
+							<form th:if="${reservation != null}" th:object="${reservation}"
+								th:action="@{/saveReservation}" class="form-horizontal" method="post">
+								<input th:value="${reservation.date}" type="text" name="dateReservation"/>
+								<select class="form-select p-2"  style=" color: #080808; border-color:#e794e9;
+								background-color: #ead5eb" name="choosenTime">
+									
+									<option th:each="time : ${freeTime}" class="btn" type="submit" th:text="${time}"
+										th:value="${time}" ></option>
+								</select>
+								<select class="form-select container p-3" name="choosenOffer" style=" color: #080808; border-color:#e794e9;
+								background-color: #ead5eb">
+									<option th:each="offer : ${offers}" class="btn" type="submit"
+										th:text="${offer.nameOfOffer}" th:value="${offer.offer_id}"
+										></option>
+								</select>
+								
+								<label for="phoneNumber" class="control-label" > <br> Broj mobitela:</label>
+								<input id="phoneNumber" class="form-control" style=" color: #080808; border-color:#e794e9;
+								 background-color: #ead5eb" th:field="*{phoneNumber}" />
+								<input id="employeeid" class="form-control" th:field="*{employeeId}" hidden />
+								<input id="date" class="form-control" th:field="*{date}" hidden />
+
+								<button class="btn btn-dark" style=" color: #080808; border-color:#e794e9; background-color: #ead5eb">
+									PODNESI
+								</button>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!-- Extra JavaScript/CSS added manually in "Settings" tab -->
+	<!-- Include jQuery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+	<script>
+		$(document).ready(function () {
+			var date_input = $('input[name="date"]'); //our date input has the name "date"
+			var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+			date_input.datepicker({
+				format: 'mm/dd/yyyy',
+				container: container,
+				todayHighlight: true,
+				autoclose: true,
+			})
 		})
-	})
-</script>
-
+	</script>
+	</div>
+	</main>
 </body>
 
 <footer style="background-color:#f0ddf1;">

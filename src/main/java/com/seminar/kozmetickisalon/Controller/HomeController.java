@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -83,7 +84,6 @@ public class HomeController {
         calendar.setTime(date);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        System.out.println("AAAAAAAAAAAAAAAAAAAAA  " + month + " " + "day" + employeeId);
         List<Reservations>emplRes = reservationService.getBuisyTimeDateEmployee(month, day,employeeService.findById(Integer.valueOf(employeeId)));
          
         for(int i=0; i<emplRes.size(); i++){
@@ -92,7 +92,7 @@ public class HomeController {
             }
         }
         ReservationDTO newR = new ReservationDTO();
-        newR.setDate(date);
+        newR.setDate(date.toString());
         newR.setEmployeeId(Integer.valueOf(employeeId));
         mv.addObject("freeTime", timeList);
         mv.addObject("dateReservation", date);
@@ -103,9 +103,11 @@ public class HomeController {
     }
 
     @PostMapping("/saveReservation")
-    public String saveReservation(ReservationDTO reservation) {
+    public String saveReservation(ReservationDTO reservation, String choosenOffer, String choosenTime) {
        
         /// stvaranje rezervacije
+        reservation.setOfferId(Integer.valueOf(choosenOffer));
+        reservation.setTime(choosenTime);
         reservationService.saveReservation(reservation);
         return "redirect:/getUserReservations";
     }
@@ -113,11 +115,20 @@ public class HomeController {
     @GetMapping("/getUserReservations")
     ModelAndView getUserReservations(){
         ModelAndView mv = new ModelAndView("myReservations");
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User u = userService.findByEmail(auth.getName());
+
+
         mv.addObject("reservations", reservationService.findAllByUser(u.getUser_id()));
         return mv;
 
+
+    }
+    @GetMapping("/welcome/cancelReservation/{id}")
+    String approveReservation(@PathVariable String id){
+        reservationService.setcancel(Integer.valueOf(id));
+        return "redirect:/getUserReservations";
     }
 
 

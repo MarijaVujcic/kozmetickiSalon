@@ -38,27 +38,55 @@
 
 <body>
 
-	<nav class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #e6bae7;">
+	<nav  class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #e6bae7;">
 		<div>
-
-
-			<div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault" ></div>
 			<ul class="navbar-nav  mr-auto">
 				<li class="nav-item">
 					<a class="navbar navbar-brand" href="/welcome"><b>LIGHT</b></a>
 				</li>
-				<li class="nav-item active">
+				<li class="nav-item active" sec:authorize="!isAuthenticated()">
 					<a class="nav-link" href="/welcome">O nama</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item" sec:authorize="!isAuthenticated()">
 					<a class="nav-link" href="/ponuda">Ponuda</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item" sec:authorize="!isAuthenticated()">
 					<a class="nav-link" href="/registration">Registriraj se</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item" sec:authorize="!isAuthenticated()">
 					<a class="nav-link" href="/login">Zakaži termin</a>
 				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
+					<a class="nav-link" th:href="@{/reserve}">Rezerviraj termin</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
+					<a class="nav-link" th:href="@{/getUserReservations}">Moje rezervacije</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/admin/}">Početna</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/user/config}">Korisnici</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link active" th:href="@{/employee/config}">Zaposlenici</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/offer/config}">Ponude</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/reservation/config}">Rezervacije</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+					<a class="nav-link" th:href="@{/role/config}">Role</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated()">
+					<a class="nav-link" th:href="@{/logout}">Odjava</a>
+				</li>
+
+
+				
 			</ul>
 		</div>
 
@@ -68,7 +96,7 @@
 	<main role="main" class="container py-5">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-6">
-				<h3>EMPLOYEES</h3>
+				<h3>ZAPOSLENICI</h3>
 				<hr>
 				
 				<table class="table">
@@ -87,34 +115,36 @@
 			</div>
 		</div>
 		<form th:object="${employeeToAdd}" th:action="@{/employee/addEmployee}" method="post">
-			<h3>CREATE NEW EMPLOYEE</h3>
+			<h3>STVORI NOVOG ZAPOSLENIKA</h3>
 			<hr>
 			<div class="form-group" >
 				<input class="form-control" th:field="*{name}" placeholder="name"/>
 			</div>
 			
 			<br>
-			<button class="btn btn-dark"  style="color: #080808; border-color:#e794e9; background-color: #ead5eb" type="submit">CREATE</button>
+			<button class="btn btn-dark"  style="color: #080808; border-color:#e794e9; background-color: #ead5eb" type="submit">STVORI</button>
 		</form>
 		<br>
-		<h3>UPDATE EMPLOYEE</h3>
+		<h3>UPDATE ZAPOSLENIKA</h3>
 		<hr>
 		<form  th:action="@{/employee/updateEmployee/}" method="post">
 			<select name="id" class="form-control mr-sm-4" style=" color: #080808; border-color:#e794e9; background-color: #ead5eb">
 					<option th:if="${employees != null}"  th:each="employee : ${employees}" th:value="${employee.employee_id}" th:text="${employee.name}"> </option>
 			</select>
-			<button class="btn" type="submit" >ODABERI</button>
+			<br>
+			<button class="btn btn-dark"  style="color: #080808; border-color:#e794e9; background-color: #ead5eb" type="submit" >ODABERI</button>
 		</form>
-
+		<br>
 		
 		<form  th:if="${updateEmployee != null}" th:object="${updateEmployee}" th:action="@{/employee/updateEmployee}" method="post">
-			<h1>UPDATE EMPLOYEE</h1>
+			<h3>UPDATE ZAPOSLENIKA</h3>
+			<hr>
 			<div class="form-group" >
 				<input class="form-control" th:field="*{name}"  />
 				<input class="form-control" th:field="*{employee_id}" hidden/>
 			</div>
 			
-			<button class="btn btn-outline-primary" type="submit">UPDATE</button>
+			<button class="btn btn-dark"  style="color: #080808; border-color:#e794e9; background-color: #ead5eb" type="submit">UPDATE</button>
 		</form>
 	
       

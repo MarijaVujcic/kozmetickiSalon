@@ -1,9 +1,13 @@
 package com.seminar.kozmetickisalon.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -78,6 +82,15 @@ public class ReservationService {
     }
 
     public void saveReservation(ReservationDTO r){
+        String str1 = r.getDate();
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("EE MMM dd HH:mm:ss zzzz yyyy", Locale.US);
+        try {
+             date = formatter.parse(str1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+       
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         Reservations newR = new Reservations();
         newR.setIsConfirmed(false);
@@ -86,7 +99,7 @@ public class ReservationService {
         newR.setOffer(offerRepository.findById(r.getOfferId()).get());
         newR.setUser(userRepository.findByEmail(loggedInUser.getName()).get(0));
         newR.setPhoneNumber(r.getPhoneNumber());
-        newR.setReservationDate(r.getDate());
+        newR.setReservationDate(date);
         newR.setReservationTime(r.getTime());
         newR.setEmployee(employeeService.findById(r.getEmployeeId()));
         reservationRepository.save(newR);
@@ -124,6 +137,13 @@ public class ReservationService {
             }
         });
         return resB;
+    }
+
+
+    public void setcancel(Integer valueOf) {
+        Reservations r = reservationRepository.findById(valueOf).get();
+        r.setIsCancled(true);
+        reservationRepository.save(r);
     }
 
 

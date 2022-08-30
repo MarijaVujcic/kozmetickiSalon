@@ -6,10 +6,10 @@ public class ReservationDTO {
 
     private String phoneNumber;
     private Integer offerId;
-    private Date date;
+    private String date;
     private String time;
     private Integer employeeId;
-    public ReservationDTO(String phoneNumber, Integer offerId, Date date, String time) {
+    public ReservationDTO(String phoneNumber, Integer offerId, String date, String time) {
         this.phoneNumber = phoneNumber;
         this.offerId = offerId;
         this.date = date;
@@ -47,21 +47,6 @@ public class ReservationDTO {
         this.offerId = offerId;
     }
 
-    /**
-     * @return Date return the date
-     */
-    public Date getDate() {
-        return date;
-    }
-
-    /**
-     * @param date the date to set
-     */
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-
 
 
     /**
@@ -91,6 +76,14 @@ public class ReservationDTO {
      */
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
 }
