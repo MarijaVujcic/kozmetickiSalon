@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.seminar.kozmetickisalon.DTO.RegistrationDTO;
+import com.seminar.kozmetickisalon.DTO.ReservationDTO;
 import com.seminar.kozmetickisalon.Model.Reservations;
 import com.seminar.kozmetickisalon.Model.User;
+import com.seminar.kozmetickisalon.Service.EmployeeService;
+import com.seminar.kozmetickisalon.Service.OfferService;
 import com.seminar.kozmetickisalon.Service.ReservationService;
 import com.seminar.kozmetickisalon.Service.UserService;
 
@@ -29,7 +33,12 @@ public class HomeController {
     ReservationService reservationService;
 
     @Autowired
+    EmployeeService employeeService;
+
+    @Autowired
     UserService userService;
+    @Autowired
+    OfferService offerService;
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -54,12 +63,15 @@ public class HomeController {
     @GetMapping("/reserve")
     public ModelAndView reserve(Model model) {
         ModelAndView mv = new ModelAndView("reserve");
+        mv.addObject("employees", employeeService.findAll());
         return mv;
     }
 
     @PostMapping("/getFreeTime")
-    public ModelAndView getTime(Date date) {
-         List<String> timeList = new ArrayList<String>();
+    public ModelAndView getTime(String employeeId, Date date){
+        ModelAndView mv = new ModelAndView("reserve");
+        Calendar calendar = new GregorianCalendar();
+        List<String> timeList = new ArrayList<String>();
         timeList.add("9-10");
         timeList.add("10-11");
         timeList.add("11-12");
@@ -68,30 +80,34 @@ public class HomeController {
         timeList.add("14-15");
         timeList.add("15-16");
         timeList.add("16-17");
-
-        ModelAndView mv = new ModelAndView("reserve");
-        Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        List<Reservations>notFree = reservationService.getBuisyTimeDate(month, day);
+        System.out.println("AAAAAAAAAAAAAAAAAAAAA  " + month + " " + "day" + employeeId);
+        List<Reservations>emplRes = reservationService.getBuisyTimeDateEmployee(month, day,employeeService.findById(Integer.valueOf(employeeId)));
          
-        for(int i=0; i<notFree.size(); i++){
-            if(timeList.contains(notFree.get(i).getReservationTime())){
-                timeList.remove(notFree.get(i).getReservationTime());
+        for(int i=0; i<emplRes.size(); i++){
+            if(timeList.contains(emplRes.get(i).getReservationTime())){
+                timeList.remove(emplRes.get(i).getReservationTime());
             }
         }
+        ReservationDTO newR = new ReservationDTO();
+        newR.setDate(date);
+        newR.setEmployeeId(Integer.valueOf(employeeId));
         mv.addObject("freeTime", timeList);
         mv.addObject("dateReservation", date);
+        mv.addObject("reservation", newR);
+        mv.addObject("offers", offerService.findAll());
+        mv.addObject("employees", employeeService.findAll());
         return mv;
     }
+
     @PostMapping("/saveReservation")
-    public ModelAndView saveReservation(String choosenTime, String dateReservation) throws ParseException {
-        ModelAndView mv = new ModelAndView("homepagee");
+    public String saveReservation(ReservationDTO reservation) {
+       
         /// stvaranje rezervacije
-        LocalDate date = LocalDate.parse(dateReservation);       
-        System.out.println(" AAAAA " + choosenTime + "   "+date.toString());
-        return mv;
+        reservationService.saveReservation(reservation);
+        return "redirect:/getUserReservations";
     }
 
     @GetMapping("/getUserReservations")

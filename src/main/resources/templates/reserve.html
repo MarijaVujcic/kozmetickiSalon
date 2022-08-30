@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <title>FormDen Example</title>
-</head>
+
+	<meta charset="utf-8">
+	<title>LIGHT</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<style>
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+				font-size: 3.5rem;
+			}
+
+		}
+
+		.img-fluid {
+			max-width: 100%;
+			height: auto;
+		}
+	</style>
+
+	<!-- Custom styles for this template -->
 <body>
 
 <!--formden.js communicates with FormDen server to validate fields and submit via AJAX -->
@@ -20,55 +47,106 @@
 <!-- Inline CSS based on choices in "Settings" tab -->
 <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
 
+<nav  class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #e6bae7;">
+  <div>
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault" ></div>
+    <ul class="navbar-nav  mr-auto">
+      <li class="nav-item">
+        <a class="navbar navbar-brand" href="/welcome"><b>LIGHT</b></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/welcome">O nama</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/ponuda">Ponuda</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/registration">Registriraj se</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Zakaži termin</a>
+      </li>
+      <li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
+        <a class="nav-link" href="/reserve}">Rezerviraj termin</a>
+      </li>
+      <li class="nav-item" sec:authorize="isAuthenticated()">
+        <a class="nav-link" th:href="@{/logout}">LOGOUT</a>
+      </li>
+      
+    </ul>
+  </div>
+
+</nav>
+<main role="main">
+  <div class="container py-5">
 <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
 <div class="bootstrap-iso">
- <div class="container-fluid">
-  <div class="row">
-   <div class="col-md-6 col-sm-6 col-xs-12">
-    <form th:action="@{/getFreeTime}" class="form-horizontal" method="post">
-     <div class="form-group ">
-      <label class="control-label col-sm-2 requiredField" for="date">
-       Date
-       <span class="asteriskField">
-        *
-       </span>
-      </label>
-      <div class="col-sm-10">
-       <div class="input-group">
-        <div class="input-group-addon">
-         <i class="fa fa-calendar">
-         </i>
-        </div>
-        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
-       </div>
-      </div>
-     </div>
-     <div class="form-group">
-      <div class="col-sm-10 col-sm-offset-2">
-       <input name="_honey" style="display:none" type="text"/>
-       <button class="btn btn-primary " name="submit" type="submit">
-        Submit
-       </button>
-      </div>
-     </div>
-    </form>
-   </div>
-   <form th:action="@{/saveReservation}" class="form-horizontal" method="post">
-    <input th:value="${dateReservation}"  name="dateReservation" hidden/>
-    <select class="form-select" name="choosenTime">
-        <option  th:each="time : ${freeTime}" class="btn" type="submit" 
-        th:text="${time}" th:value="${time}"></option>
-      </select> 
-      <button class="btn btn-primary " name="submit" type="submit">
-        Submit
-       </button>
 
+ <div class="container-fluid">
+
+  <div class="row">
+    <!-- KALENDAR -->
+
+   <div class="col-md-6 col-sm-6 col-xs-12">
+      <form  th:action="@{'/getFreeTime/'}" method="post">
+          <div class="form-group ">
+            <label class="control-label col-sm-2 requiredField" for="date">
+            Date
+            <span class="asteriskField">
+              *
+            </span>
+            </label>
+            <div class="col-sm-10">
+            <div class="input-group">
+              <div class="input-group-addon">
+              <i class="fa fa-calendar">
+              </i>
+              </div>
+              <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+            </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+            <input name="_honey" style="display:none" type="text"/>
+            </div>
+          </div>
+        </div>
+        <select name="employeeId" class="form-control mr-sm-4" style=" color: #080808; border-color:#e794e9; background-color: #ead5eb">
+            <option th:each="employee : ${employees}" th:value="${employee.employee_id}" th:text="${employee.name}"> </option>
+        </select>
+        <button class="btn" type="submit" >ODABERI</button>
+      </form>
+  
+    
+<div class="container">
+
+    <form th:if="${reservation != null}" th:object="${reservation}" th:action="@{/saveReservation}" class="form-horizontal" method="post">
+        <input th:value="${reservation.date}" type="text" name="dateReservation"/>
+        <select class="form-select" name="choosenTime">
+            <option  th:each="time : ${freeTime}" class="btn" type="submit" 
+            th:text="${time}" th:value="${time}" th:field="${reservation.time}"></option>
+        </select> 
+        <select class="form-select" name="choosenTime">
+            <option  th:each="offer : ${offers}" class="btn" type="submit" 
+            th:text="${offer.nameOfOffer}" th:value="${offer.offer_id}" th:field="${reservation.offerId}"></option>
+        </select>
+        <label for="phoneNumber" class="control-label">Broj mobitela:</label>
+         <input id="phoneNumber" class="form-control" th:field="*{phoneNumber}" />
+         <input id="employeeid" class="form-control" th:field="*{employeeId}" hidden/>
+         <input id="date" class="form-control" th:field="*{date}" hidden/>
+
+        <button class="btn btn-primary " name="submit" type="submit">
+            Submit
+        </button>
     </form>
+  </div>
+    
   </div>
  </div>
 </div>
-
-
+</div>
+</main>
 <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
 <!-- Include jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -91,5 +169,52 @@
 </script>
 
 </body>
+
+<footer style="background-color:#f0ddf1;">
+	<div class="container p-4">
+		<div class="row">
+			<div class="col-lg-5 col-md-6 mb-4">
+				<h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Informacije:</h5>
+				<table class="table" style="color: #4f4f4f; border-color: #666666;">
+					<tbody>
+						<tr>
+							<td>Kontakt broj:</td>
+							<td>099 776 5643</td>
+						</tr>
+						<tr>
+							<td>E-mail:</td>
+							<td>light.bs@gmail.com</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-3 col-md-6 mb-4">
+				<h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Vidimo se :)</h5>
+
+			</div>
+			<div class="col-lg-3 col-md-6 mb-4">
+				<h5 class="mb-1" style="letter-spacing: 3px; color: #818963;">Radno vrijeme:</h5>
+				<table class="table" style="color: #4f4f4f; border-color: #666666;">
+					<tbody>
+						<tr>
+							<td>Pon - Pet</td>
+							<td>09:00 - 17:00</td>
+						</tr>
+						<tr>
+							<td>Vikend</td>
+							<td>Zatvoreno</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="text-center p-3" style="background-color:#e6bae7">
+		© 2022 Copyright:
+		<a class="text-dark" href="">LIGHT beauty centar</a>
+	</div>
+
+</footer>
+
 
 </html>

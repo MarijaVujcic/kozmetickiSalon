@@ -8,6 +8,7 @@ public class ReservationDTO {
     private Integer offerId;
     private Date date;
     private String time;
+    private Integer employeeId;
     public ReservationDTO(String phoneNumber, Integer offerId, Date date, String time) {
         this.phoneNumber = phoneNumber;
         this.offerId = offerId;
@@ -75,6 +76,21 @@ public class ReservationDTO {
      */
     public void setTime(String time) {
         this.time = time;
+    }
+
+
+    /**
+     * @return Integer return the employeeId
+     */
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    /**
+     * @param employeeId the employeeId to set
+     */
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
 }

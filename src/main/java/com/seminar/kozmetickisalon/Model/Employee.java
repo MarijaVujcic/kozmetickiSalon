@@ -15,33 +15,22 @@ public class Employee {
 
     private String name;
     
-    @ManyToMany(cascade = {
-        CascadeType.ALL
-    })
-    @JoinTable(
-        name = "employees_projects",
-        joinColumns =@JoinColumn(name = "employeeId", referencedColumnName = "employee_id"),
-        inverseJoinColumns = @JoinColumn(name = "offerId", referencedColumnName = "offer_id" )
-        
-    )
-    private Set<Offer> offers = new HashSet<Offer>();
-
+    @OneToMany(mappedBy="employee", fetch = FetchType.EAGER,
+    cascade = CascadeType.ALL)
+    private Set<Reservations> reservations;
+  
     public Employee() {
     }
 
-    public Employee(Integer employee_id, String name, Set<Offer> offers) {
+    public Employee(Integer employee_id, String name) {
         this.employee_id = employee_id;
         this.name = name;
-        this.offers = offers;
     }
 
-    public Employee(String name, Set<Offer> offers) {
+    public Employee(String name) {
         this.name = name;
-        this.offers = offers;
+
     }
-
-    
-
 
     /**
      * @return Integer return the employee_id
@@ -71,22 +60,5 @@ public class Employee {
         this.name = name;
     }
 
-    /**
-     * @return Set<Offer> return the offers
-     */
-    public Set<Offer> getOffers() {
-        return offers;
-    }
-
-    public Object[] getOffersList() {
-        return offers.toArray();
-    }
-
-    /**
-     * @param offers the offers to set
-     */
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
-    }
 
 }

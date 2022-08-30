@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.seminar.kozmetickisalon.DTO.ReservationDTO;
+import com.seminar.kozmetickisalon.Model.Employee;
 import com.seminar.kozmetickisalon.Model.Reservations;
 import com.seminar.kozmetickisalon.Repository.OfferRepository;
 import com.seminar.kozmetickisalon.Repository.ReservationRepository;
@@ -25,6 +26,8 @@ public class ReservationService {
     OfferRepository offerRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    EmployeeService employeeService;
 
     public List<Reservations> findAll() {
         return reservationRepository.findAll();
@@ -66,7 +69,7 @@ public class ReservationService {
         });
         return res;
     }
-
+  
 
     public void setConfirmed(Integer valueOf) {
         Reservations r = reservationRepository.findById(valueOf).get();
@@ -85,6 +88,7 @@ public class ReservationService {
         newR.setPhoneNumber(r.getPhoneNumber());
         newR.setReservationDate(r.getDate());
         newR.setReservationTime(r.getTime());
+        newR.setEmployee(employeeService.findById(r.getEmployeeId()));
         reservationRepository.save(newR);
     }
 
@@ -105,6 +109,23 @@ public class ReservationService {
         });
         return reservationFree;
     }
+
+    public List<Reservations> getBuisyTimeDateEmployee(int month, int day, Employee e) {
+        List<Reservations> reservation = this.findAll();
+        List<Reservations> resB = new ArrayList<Reservations>();
+        reservation.forEach((r) ->{
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime( r.getReservationDate());
+            int monthR = calendar.get(Calendar.MONTH) + 1;
+            int dayR = calendar.get(Calendar.DAY_OF_MONTH);
+            
+            if(dayR == day && monthR == month && r.isIsConfirmed() && r.getEmployee().equals(e)){
+                resB.add(r);
+            }
+        });
+        return resB;
+    }
+
 
     
 

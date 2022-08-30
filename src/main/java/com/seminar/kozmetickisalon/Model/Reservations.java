@@ -29,6 +29,9 @@ public class Reservations {
     private User user;
 
     @ManyToOne
+    private Employee employee;
+
+    @ManyToOne
     @JoinColumn(name="offer_id", nullable=false)
     private Offer offer;
 
@@ -174,6 +177,21 @@ public class Reservations {
      */
     public void setReservationTime(String reservationTime) {
         this.reservationTime = reservationTime;
+    }
+
+
+    /**
+     * @return Employee return the employee
+     */
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    /**
+     * @param employee the employee to set
+     */
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
 }

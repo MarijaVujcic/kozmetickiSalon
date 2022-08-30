@@ -1,9 +1,13 @@
 package com.seminar.kozmetickisalon.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.seminar.kozmetickisalon.Model.Employee;
+import com.seminar.kozmetickisalon.Model.Offer;
 import com.seminar.kozmetickisalon.Repository.EmployeeRepository;
 
 @Service
@@ -16,7 +20,7 @@ public class EmployeeService {
     OfferService offerService;
 
     
-    public Object findAll() {
+    public List<Employee> findAll() {
         return employeeRepository.findAll();
     }
 
@@ -31,10 +35,9 @@ public class EmployeeService {
     }
 
 
-    public void createEmployee(Employee user, Integer valueOf) {
+    public void createEmployee(Employee user) {
         Employee employee = new Employee();
         employee.setName(user.getName());
-        employee.getOffers().add(offerService.findById(valueOf));
         employeeRepository.save(employee);
     }
 
@@ -42,5 +45,8 @@ public class EmployeeService {
     public void update(Employee updEmployee) {
         employeeRepository.save(updEmployee);
     }
+
+
+
     
 }
