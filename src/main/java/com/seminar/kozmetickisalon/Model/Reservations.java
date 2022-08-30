@@ -1,6 +1,5 @@
 package com.seminar.kozmetickisalon.Model;
 
-import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Column;

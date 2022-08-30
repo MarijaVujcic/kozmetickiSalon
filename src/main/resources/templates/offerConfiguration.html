@@ -83,7 +83,6 @@
 					<tr th:if="${offers != null}" th:each="offer : ${offers}">
 						<td th:text="${offer.offer_id}"></td>
 						<td th:text="${offer.nameOfOffer}"></td>
-						<td th:text="${offer.description}"></td>
 						<td th:text="${offer.price}"></td>
 						<td>
 							<form th:action="@{'/offer/deleteOffer/'+${offer.offer_id}}" method="get">
@@ -100,7 +99,6 @@
 			<hr>
 			<div class="form-group" >
 				<input class="form-control" th:field="*{nameOfOffer}" placeholder="Offer name"/>
-				<input class="form-control" th:field="*{description}" placeholder="Description"/>
 				<input class="form-control" type="number" th:field="*{price}" placeholder="Price" />
 			</div>
 			<button class="btn btn-dark"  style=" color: #080808; border-color:#e794e9; background-color: #ead5eb" type="submit">CREATE</button>
@@ -119,7 +117,6 @@
 			<h1>UPDATE OFFER</h1>
 			<div class="form-group" >
 				<input class="form-control" th:field="*{nameOfOffer}" />
-				<input class="form-control" th:field="*{description}" />
 				<input class="form-control" th:field="*{price}" />
 				<input class="form-control" th:field="*{offer_id}" hidden />
 			</div>

@@ -1,13 +1,9 @@
 package com.seminar.kozmetickisalon.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,10 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.seminar.kozmetickisalon.DTO.ReservationDTO;
-import com.seminar.kozmetickisalon.Model.Employee;
-import com.seminar.kozmetickisalon.Model.Offer;
 import com.seminar.kozmetickisalon.Model.Reservations;
-import com.seminar.kozmetickisalon.Model.User;
 import com.seminar.kozmetickisalon.Repository.OfferRepository;
 import com.seminar.kozmetickisalon.Repository.ReservationRepository;
 import com.seminar.kozmetickisalon.Repository.UserRepository;

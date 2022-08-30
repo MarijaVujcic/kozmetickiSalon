@@ -1,6 +1,5 @@
 package com.seminar.kozmetickisalon.DTO;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class ReservationDTO {

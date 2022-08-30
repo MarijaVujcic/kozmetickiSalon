@@ -21,7 +21,6 @@ public class Offer {
     private Integer offer_id;
 
     private String nameOfOffer;
-    private String description;
     private Float price;
 
     @OneToMany(mappedBy="offer", fetch = FetchType.EAGER,
@@ -32,7 +31,6 @@ public class Offer {
             Set<Reservations> reservations) {
         this.offer_id = offer_id;
         this.nameOfOffer = nameOfOffer;
-        this.description = description;
         this.price = price;
         this.reservations = reservations;
     }
@@ -42,7 +40,6 @@ public class Offer {
 
     public Offer(String nameOfOffer, String description, Float price, Set<Reservations> reservations) {
         this.nameOfOffer = nameOfOffer;
-        this.description = description;
         this.price = price;
         this.reservations = reservations;
     }
@@ -51,7 +48,6 @@ public class Offer {
 
     public Offer(Offer offer) {
         this.nameOfOffer = offer.getNameOfOffer();
-        this.description = offer.getDescription();
         this.price = offer.getPrice();
     }
 
@@ -83,19 +79,6 @@ public class Offer {
         this.nameOfOffer = nameOfOffer;
     }
 
-    /**
-     * @return String return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     /**
      * @return Float return the price

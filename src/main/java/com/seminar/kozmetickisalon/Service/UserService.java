@@ -3,7 +3,6 @@ package com.seminar.kozmetickisalon.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +44,11 @@ public class UserService  implements UserDetailsService {
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
-        
+        List<Role> roles = new ArrayList<Role>();
+        roles.add(user.getRole());
         return new org.springframework.security.core.userdetails.User(
           user.getEmail(), user.getPassword(), enabled, accountNonExpired,
-          credentialsNonExpired, accountNonLocked, mapRolesToAuthorities(user.getRoles()));
+          credentialsNonExpired, accountNonLocked, mapRolesToAuthorities(roles));
 
     }
 
@@ -66,8 +66,7 @@ public class UserService  implements UserDetailsService {
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
         System.out.println(roleRepository.findByName(roleName).getName());
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAA");
-        newUser.setOneRole(roleRepository.findByName(roleName));
+        newUser.setRole(roleRepository.findByName(roleName));
         userRepository.save(newUser);
 
     }
@@ -78,7 +77,7 @@ public class UserService  implements UserDetailsService {
         newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
-        newUser.setOneRole(roleRepository.findById(Integer.valueOf(roleName)).get());
+        newUser.setRole(roleRepository.findById(Integer.valueOf(roleName)).get());
         userRepository.save(newUser);
 
     }
@@ -108,9 +107,8 @@ public class UserService  implements UserDetailsService {
         updUser.setEmail(user.getEmail());
         updUser.setFirstName(user.getFirstName());
         updUser.setLastName(user.getLastName());
-        updUser.getRoles().remove(updUser.getOneRole());
-        updUser.setOneRole(roleRepository.findById(Integer.valueOf(role)).get());
-        userRepository.save(updUser); //TODO: PROMINI U ONE TO ONE
+        updUser.setRole(roleRepository.findById(Integer.valueOf(role)).get());
+        userRepository.save(updUser); 
     }
 
     

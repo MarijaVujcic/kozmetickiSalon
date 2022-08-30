@@ -3,11 +3,8 @@ package com.seminar.kozmetickisalon.Controller;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.sql.Time;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.seminar.kozmetickisalon.DTO.ReservationDTO;
 import com.seminar.kozmetickisalon.Model.Reservations;
 import com.seminar.kozmetickisalon.Model.User;
 import com.seminar.kozmetickisalon.Service.ReservationService;
@@ -76,7 +72,6 @@ public class HomeController {
         ModelAndView mv = new ModelAndView("reserve");
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
-        int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         List<Reservations>notFree = reservationService.getBuisyTimeDate(month, day);
@@ -94,7 +89,6 @@ public class HomeController {
     public ModelAndView saveReservation(String choosenTime, String dateReservation) throws ParseException {
         ModelAndView mv = new ModelAndView("homepagee");
         /// stvaranje rezervacije
-        Date what = new Date();
         LocalDate date = LocalDate.parse(dateReservation);       
         System.out.println(" AAAAA " + choosenTime + "   "+date.toString());
         return mv;

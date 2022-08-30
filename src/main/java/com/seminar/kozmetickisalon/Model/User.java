@@ -2,12 +2,9 @@ package com.seminar.kozmetickisalon.Model;
 
 import javax.persistence.*;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.seminar.kozmetickisalon.DTO.RegistrationDTO;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,14 +20,8 @@ public class User {
     private String email;
     private String password;
 
-    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "users_roles",
-        joinColumns =@JoinColumn(name = "userId"),
-        inverseJoinColumns = @JoinColumn(name = "roleId")
-    )
-    private Collection<Role> roles = new HashSet<Role>();
-
+    @ManyToOne
+    private Role role;
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY,
     cascade = CascadeType.ALL)
     private Set<Reservations> reservations;
@@ -43,7 +34,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.reservations = reservations;
-        this.getRoles().add(role);
+        this.role = role;
     }
 
     public User(String firstName, String lastName, String email, String password, Role role,
@@ -53,7 +44,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.reservations = reservations;
-        this.getRoles().add(role);
+        this.role = role;
     }
 
     public User() {
@@ -64,7 +55,7 @@ public class User {
         this.lastName = userDto.getLastName();
         this.email = userDto.getEmail();
         this.password = userDto.getPassword();
-        this.getRoles().add(role);
+        this.role = role;
     }
 
     public User(User user, Role role) {
@@ -72,7 +63,7 @@ public class User {
         this.lastName = user.getLastName();
         this.password = user.getPassword();
         this.email = user.getEmail();
-        this.getRoles().add(role);
+        this.role = role;
     }
 
     /**
@@ -164,26 +155,19 @@ public class User {
 
 
 
+    /**
+     * @param role the role to set
+     */
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
 
     /**
-     * @return Set<Role> return the roles
+     * @return Role return the role
      */
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    /**
-     * @param roles the roles to set
-     */
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public void setOneRole(Role role) {
-        this.getRoles().add(role);
-    }
-    public Role getOneRole() {
-        return this.getRoles().stream().findFirst().get();
+    public Role getRole() {
+        return role;
     }
 
 }

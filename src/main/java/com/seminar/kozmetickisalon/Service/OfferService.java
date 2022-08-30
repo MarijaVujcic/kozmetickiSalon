@@ -45,7 +45,6 @@ public class OfferService {
 
     public void updateOffer(Offer offer) {
         Offer update = offerRepository.findById(offer.getOffer_id()).get();
-        update.setDescription(offer.getDescription());
         update.setNameOfOffer(offer.getNameOfOffer());
         update.setPrice(offer.getPrice());
         offerRepository.save(update);

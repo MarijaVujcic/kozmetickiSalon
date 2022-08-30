@@ -2,7 +2,6 @@ package com.seminar.kozmetickisalon.Model;
 
 
 
-import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 
@@ -25,10 +23,10 @@ public class Role {
     @Column(name = "role_id")
     private Integer role_id;
     private String name;
+    @OneToMany(mappedBy="role", fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL)
+    private Set<User> reservations;
 
-    @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
-  
     public Role(Integer role_id, String name, Set<User> users) {
         this.role_id = role_id;
         this.name = name;
@@ -57,20 +55,5 @@ public class Role {
         this.name = name;
     }
 
-
-
-    /**
-     * @return Collection<User> return the users
-     */
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    /**
-     * @param users the users to set
-     */
-    public void setUsers(Collection<User> users) {
-        this.users = users;
-    }
 
 }

@@ -16,7 +16,6 @@ import com.seminar.kozmetickisalon.Model.Employee;
 import com.seminar.kozmetickisalon.Model.Offer;
 import com.seminar.kozmetickisalon.Service.EmployeeService;
 import com.seminar.kozmetickisalon.Service.OfferService;
-//TODO:MAKNIT DESC U OFFER
 @Controller
 @RequestMapping("/employee")
 public class  EmployeeController {
