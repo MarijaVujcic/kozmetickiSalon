@@ -60,5 +60,13 @@ public class Employee {
         this.name = name;
     }
 
+    public Set<Reservations> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservations> reservations) {
+        this.reservations = reservations;
+    }
+
 
 }

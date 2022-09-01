@@ -45,7 +45,7 @@
 				<li class="nav-item">
 					<a class="navbar navbar-brand" href="/welcome"><b>LIGHT</b></a>
 				</li>
-				<li class="nav-item active" sec:authorize="!isAuthenticated()">
+				<li class="nav-item" sec:authorize="!isAuthenticated()">
 					<a class="nav-link" href="/welcome">O nama</a>
 				</li>
 				<li class="nav-item">
@@ -55,14 +55,14 @@
 					<a class="nav-link" href="/registration">Registriraj se</a>
 				</li>
 				<li class="nav-item" sec:authorize="!isAuthenticated()">
-					<a class="nav-link" href="/login">Zakaži termin</a>
+					<a class="nav-link active" href="/login">Zakaži termin</a>
 				</li>
 				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
-					<a class="nav-link" th:href="@{/reserve}">Rezerviraj termin</a>
+					<a class="nav-link" th:href="@{/welcome/reserve}">Rezerviraj termin</a>
 				</li>
 				
 				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
-					<a class="nav-link" th:href="@{/getUserReservations}">Moje rezervacije</a>
+					<a class="nav-link" th:href="@{/welcome/getUserReservations}">Moje rezervacije</a>
 				</li>
 				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
 					<a class="nav-link" th:href="@{/admin/}">Početna</a>
@@ -101,7 +101,7 @@
 				<hr>
 				<form th:action="@{/login}" method="post">
 					<div th:if="${param.error}">
-						<div class="alert alert-danger"> [[${param.error}]]</div>
+						<div class="alert alert-danger">Netočan email ili lozinka. Molimo pokušajte ponovno.</div>
 					</div>
 					<div th:if="${param.logout}">
 						<div class="alert alert-info">You have been logged out.</div>

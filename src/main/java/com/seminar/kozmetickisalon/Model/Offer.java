@@ -27,18 +27,16 @@ public class Offer {
     cascade = CascadeType.ALL)
     private Set<Reservations> reservations = new HashSet<Reservations>();
 
-    public Offer(Integer offer_id, String nameOfOffer, String description, Float price,
+    public Offer(Integer offer_id, String nameOfOffer, Float price,
             Set<Reservations> reservations) {
         this.offer_id = offer_id;
         this.nameOfOffer = nameOfOffer;
         this.price = price;
         this.reservations = reservations;
     }
-
     public Offer() {
     }
-
-    public Offer(String nameOfOffer, String description, Float price, Set<Reservations> reservations) {
+    public Offer(String nameOfOffer, Float price, Set<Reservations> reservations) {
         this.nameOfOffer = nameOfOffer;
         this.price = price;
         this.reservations = reservations;

@@ -58,10 +58,10 @@
 					<a class="nav-link" href="/login">Zakaži termin</a>
 				</li>
 				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
-					<a class="nav-link" th:href="@{/reserve}">Rezerviraj termin</a>
+					<a class="nav-link" th:href="@{/welcome/reserve}">Rezerviraj termin</a>
 				</li>
 				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
-					<a class="nav-link" th:href="@{/getUserReservations}">Moje rezervacije</a>
+					<a class="nav-link" th:href="@{/welcome/getUserReservations}">Moje rezervacije</a>
 				</li>
 				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
 					<a class="nav-link" th:href="@{/admin/}">Početna</a>
@@ -104,12 +104,19 @@
 					<tr>
 						<th scope="col">ID</th>
 						<th scope="col">Name</th>
+						<th scope="col">Delete</th>
+
 					</tr>
 					</thead>
 					<tbody>
 					<tr th:if="${employees != null}" th:each="employee : ${employees}">
 						<td th:text="${employee.employee_id}"></td>
 						<td th:text="${employee.name}"></td>
+						<td>
+							<form th:action="@{'/employee/deleteEmployee/'+ ${employee.employee_id}}" method="get">
+								<button class="btn btn-dark"  style=" color: #080808; border-color:#e794e9; background-color: #ead5eb" type="submit">DELETE</button>
+							</form>
+
 					</tr>
 				</table>
 			</div>

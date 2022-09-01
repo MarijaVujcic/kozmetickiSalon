@@ -130,6 +130,7 @@ public class Reservations {
      * @param offer the offer to set
      */
     public void setOffer(Offer offer) {
+        this.totalPrice = offer.getPrice();
         this.offer = offer;
     }
 

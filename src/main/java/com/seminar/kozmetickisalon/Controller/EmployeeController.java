@@ -36,10 +36,11 @@ public class  EmployeeController {
     }
 
     @GetMapping("/deleteEmployee/{id}")
-    String deleteEmployee(@PathVariable String id){
-        employeeService.deletEmployee(Integer.valueOf(id));
+    String deleteEmployeeString(@PathVariable String id){
+        employeeService.deleteEmployee(Integer.valueOf(id));
         return "redirect:/employee/config";
     }
+
 
     @PostMapping("/addEmployee")
     String createNewEmployee(@ModelAttribute Employee user){

@@ -37,7 +37,7 @@ public class UserService  implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = this.findByEmail(username);
         if (user == null){
-            throw new UsernameNotFoundException("Invalid username or password.");
+            throw new UsernameNotFoundException("Invalid mail or password.");
         }
        
         boolean enabled = true;
@@ -56,7 +56,6 @@ public class UserService  implements UserDetailsService {
         return collection.stream()
                 .map(r -> new SimpleGrantedAuthority(r.getName()))
                 .collect(Collectors.toList());
-
     }
 
     public void save(RegistrationDTO userDto, String roleName) {

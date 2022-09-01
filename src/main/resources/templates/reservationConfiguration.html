@@ -58,11 +58,11 @@
 					<a class="nav-link" href="/login">Zakaži termin</a>
 				</li>
 				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
-					<a class="nav-link" th:href="@{/reserve}">Rezerviraj termin</a>
+					<a class="nav-link" th:href="@{/welcome/reserve}">Rezerviraj termin</a>
 				</li>
 				
 				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('USER')">
-					<a class="nav-link" th:href="@{/getUserReservations}">Moje rezervacije</a>
+					<a class="nav-link" th:href="@{/welcome/getUserReservations}">Moje rezervacije</a>
 				</li>
 				<li class="nav-item" sec:authorize="isAuthenticated() && hasRole('ADMIN')">
 					<a class="nav-link" th:href="@{/admin/}">Početna</a>
@@ -128,7 +128,8 @@
 							<th scope="col">Date</th>
 							<th scope="col">Time</th>
 							<th scope="col">Employee</th>
-							<th scope="col">Total price</th>
+							<th scope="col">User</th>
+							<th scope="col">Price</th>
 							<th scope="col">Offer</th>
 							<th scope="col">Confirm</th>
 							<th scope="col">Canceld</th>
@@ -139,14 +140,16 @@
 							<td th:text="${reservation.reservation_id}"></td>
 							<td th:text="${reservation.reservationDate}"></td>
 							<td th:text="${reservation.reservationTime}"></td>
-							<td th:text="${reservation.getEmployee().name}"></td>
+							<td th:if="${reservation.getEmployee() != null}" th:text="${reservation.getEmployee().name}"></td>
+							<td th:if="${reservation.getEmployee() == null}" >Zaposlenik izbrisan</td>
+							<td th:text="${reservation.getUser().email}"></td>
 							<td th:text="${reservation.totalPrice}"></td>
 							<td th:text="${reservation.getOffer().nameOfOffer}"></td>
 							<td th:text="${reservation.isConfirmed}"></td>
 							<td th:text="${reservation.isCancled}"></td>
 							<td>
 							<form th:action="@{'/reservation/deleteReservation/'+${reservation.reservation_id}}" method="get">
-								<button class="btn btn-dark"  style="color: #080808; border-color:#e794e9; background-color: #ead5eb" type="submit">DELETE</button>
+								<button class="btn btn-dark"  style="color: #080808; border-color:#e794e9; background-color: #ead5eb" type="submit">CANCEL</button>
 							</form>
 
 						</td>

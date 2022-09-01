@@ -37,6 +37,30 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
+    public List<String> getFreeTimeForEmployeeDay(String employeeId, Date date){
+        Calendar calendar = new GregorianCalendar();
+        List<String> timeList = new ArrayList<String>();
+        timeList.add("9-10");
+        timeList.add("10-11");
+        timeList.add("11-12");
+        timeList.add("12-13");
+        timeList.add("13-14");
+        timeList.add("14-15");
+        timeList.add("15-16");
+        timeList.add("16-17");
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        List<Reservations>emplRes = this.getBuisyTimeDateEmployee(month, day,employeeService.findById(Integer.valueOf(employeeId)));
+         
+        for(int i=0; i<emplRes.size(); i++){
+            if(timeList.contains(emplRes.get(i).getReservationTime())){
+                timeList.remove(emplRes.get(i).getReservationTime());
+            }
+        }
+       
+        return timeList;
+    }
 
     public List<Reservations> findAllByUser(Integer u) {
         List<Reservations> res = new ArrayList<Reservations>();
@@ -105,24 +129,6 @@ public class ReservationService {
         reservationRepository.save(newR);
     }
 
-
-    public List<Reservations> getBuisyTimeDate(int month, int day) {
-        List<Reservations> reservation = this.findAll();
-        List<Reservations> reservationFree = new ArrayList<Reservations>();
-        reservation.forEach((r) ->{
-            Calendar calendar = new GregorianCalendar();
-            calendar.setTime( r.getReservationDate());
-            int monthR = calendar.get(Calendar.MONTH) + 1;
-            int dayR = calendar.get(Calendar.DAY_OF_MONTH);
-            
-            if(dayR == day && monthR == month && r.isIsConfirmed()){
-                reservationFree.add(r);
-
-            }
-        });
-        return reservationFree;
-    }
-
     public List<Reservations> getBuisyTimeDateEmployee(int month, int day, Employee e) {
         List<Reservations> reservation = this.findAll();
         List<Reservations> resB = new ArrayList<Reservations>();
@@ -132,7 +138,7 @@ public class ReservationService {
             int monthR = calendar.get(Calendar.MONTH) + 1;
             int dayR = calendar.get(Calendar.DAY_OF_MONTH);
             
-            if(dayR == day && monthR == month && r.isIsConfirmed() && r.getEmployee().equals(e)){
+            if(dayR == day && monthR == month && r.isIsConfirmed() && r.getEmployee() != null && r.getEmployee().equals(e)){
                 resB.add(r);
             }
         });
@@ -144,6 +150,17 @@ public class ReservationService {
         Reservations r = reservationRepository.findById(valueOf).get();
         r.setIsCancled(true);
         reservationRepository.save(r);
+    }
+
+    public List<Reservations> findAllByEmployee(Employee e) {
+        List<Reservations> reservation = this.findAll();
+        List<Reservations> resB = new ArrayList<Reservations>();
+        reservation.forEach((r) ->{
+            if( r.getEmployee() != null && r.getEmployee().equals(e)){
+                resB.add(r);
+            }
+        });
+        return resB;
     }
 
 

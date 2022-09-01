@@ -56,12 +56,14 @@ public class HomeController {
     }
 
     @GetMapping("/ponuda")
-    public String ponuda(Model model) {
-        return "ponuda";
+    public ModelAndView ponuda(Model model) {
+        ModelAndView mv = new ModelAndView("ponuda");
+        mv.addObject("offers", offerService.findAll());
+        return mv;
     }
 
 
-    @GetMapping("/reserve")
+    @GetMapping("/welcome/reserve")
     public ModelAndView reserve(Model model) {
         ModelAndView mv = new ModelAndView("reserve");
         mv.addObject("employees", employeeService.findAll());
@@ -71,29 +73,10 @@ public class HomeController {
     @PostMapping("/getFreeTime")
     public ModelAndView getTime(String employeeId, Date date){
         ModelAndView mv = new ModelAndView("reserve");
-        Calendar calendar = new GregorianCalendar();
-        List<String> timeList = new ArrayList<String>();
-        timeList.add("9-10");
-        timeList.add("10-11");
-        timeList.add("11-12");
-        timeList.add("12-13");
-        timeList.add("13-14");
-        timeList.add("14-15");
-        timeList.add("15-16");
-        timeList.add("16-17");
-        calendar.setTime(date);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        List<Reservations>emplRes = reservationService.getBuisyTimeDateEmployee(month, day,employeeService.findById(Integer.valueOf(employeeId)));
-         
-        for(int i=0; i<emplRes.size(); i++){
-            if(timeList.contains(emplRes.get(i).getReservationTime())){
-                timeList.remove(emplRes.get(i).getReservationTime());
-            }
-        }
         ReservationDTO newR = new ReservationDTO();
         newR.setDate(date.toString());
         newR.setEmployeeId(Integer.valueOf(employeeId));
+        List<String> timeList = reservationService.getFreeTimeForEmployeeDay(employeeId, date);
         mv.addObject("freeTime", timeList);
         mv.addObject("dateReservation", date);
         mv.addObject("reservation", newR);
@@ -104,31 +87,26 @@ public class HomeController {
 
     @PostMapping("/saveReservation")
     public String saveReservation(ReservationDTO reservation, String choosenOffer, String choosenTime) {
-       
-        /// stvaranje rezervacije
+        /// spremanje rezervacije
         reservation.setOfferId(Integer.valueOf(choosenOffer));
         reservation.setTime(choosenTime);
         reservationService.saveReservation(reservation);
-        return "redirect:/getUserReservations";
+        return "redirect:/welcome/getUserReservations";
     }
 
-    @GetMapping("/getUserReservations")
+    @GetMapping("/welcome/getUserReservations")
     ModelAndView getUserReservations(){
         ModelAndView mv = new ModelAndView("myReservations");
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User u = userService.findByEmail(auth.getName());
-
-
         mv.addObject("reservations", reservationService.findAllByUser(u.getUser_id()));
         return mv;
-
-
     }
+
     @GetMapping("/welcome/cancelReservation/{id}")
     String approveReservation(@PathVariable String id){
         reservationService.setcancel(Integer.valueOf(id));
-        return "redirect:/getUserReservations";
+        return "redirect:/welcome/getUserReservations";
     }
 
 

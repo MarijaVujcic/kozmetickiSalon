@@ -7,30 +7,30 @@ import javax.validation.constraints.NotEmpty;
 import com.seminar.kozmetickisalon.Constraints.FieldMatch;
 
 @FieldMatch.List({
-    @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
-    @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
+    @FieldMatch(first = "password", second = "confirmPassword", message = "Lozinke moraju biti jednake"),
+    @FieldMatch(first = "email", second = "confirmEmail", message = "Email mora biti jednak")
 })
 
 public class RegistrationDTO {
     
 
-    @NotBlank(message = "First name is required")
+    @NotBlank(message = "Potrebno je upisati ime")
     private String firstName;
 
-    @NotEmpty(message = "Last name is required")
+    @NotEmpty(message = "Potrebno je upisati prezime")
     private String lastName;
 
-    @NotEmpty(message = "Email is required")
+    @NotEmpty(message = "Potrebno je upisati email")
     @Email
     private String email;
 
-    @NotEmpty(message = "Password is required")
+    @NotEmpty(message = "Potrebno je upisati lozinku")
     private String password;
 
-    @NotEmpty(message = "Confirm password is required")
+    @NotEmpty(message = "Potrebno je potvrditi lozinku")
     private String confirmPassword;
 
-    @NotEmpty(message = "Email is required")
+    @NotEmpty(message = "Potrebno je potvrditi email")
     @Email
     private String confirmEmail;
 
